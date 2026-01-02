@@ -59,7 +59,6 @@ public class ControladorLogin implements ActionListener {
             return;
         }
 
-        // 🔹 MODELO decide (BD)
         String rolBD = usuarioDAO.obtenerRol(cedula, contrasena);
 
         if (rolBD == null) {
@@ -70,7 +69,6 @@ public class ControladorLogin implements ActionListener {
             return;
         }
 
-        // 🔐 BLOQUEO POR ROL
         if (!rolBD.equals(rolEsperado)) {
             JOptionPane.showMessageDialog(
                     vista,
@@ -79,7 +77,6 @@ public class ControladorLogin implements ActionListener {
             return;
         }
 
-        // ✅ ACCESO CORRECTO
         VistaContenedor contenedor = new VistaContenedor();
         new ControladorContenedor(contenedor, rolBD);
 

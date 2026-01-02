@@ -12,7 +12,6 @@ import java.awt.event.ActionListener;
  *
  * @author amagu
  */
-
 public class ControladorGestionBibliotecarios implements ActionListener {
 
     private GestionBibliotecarios panel;
@@ -21,10 +20,8 @@ public class ControladorGestionBibliotecarios implements ActionListener {
     public ControladorGestionBibliotecarios(GestionBibliotecarios panel) {
         this.panel = panel;
 
-        // Configurar tabla
         configurarTabla();
-
-        // Escuchar botones
+        
         panel.jbtn_agregarBiblioteario.addActionListener(this);
         panel.jbtn_buscarBibliotecario.addActionListener(this);
         panel.jbtn_editarBibliotecario.addActionListener(this);
@@ -63,7 +60,6 @@ public class ControladorGestionBibliotecarios implements ActionListener {
         }
     }
 
-    // ===== MÉTODOS LÓGICOS =====
 
     private void agregarBibliotecario() {
         JOptionPane.showMessageDialog(panel, "Agregar bibliotecario (pendiente)");

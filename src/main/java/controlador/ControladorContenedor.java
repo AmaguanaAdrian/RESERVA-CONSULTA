@@ -39,7 +39,6 @@ public class ControladorContenedor implements ActionListener {
         vista.jbtn_3.addActionListener(this);
     }
 
-    // 🔐 Mostrar botones según rol
     private void configurarVistaSegunRol() {
 
         switch (rol) {
@@ -73,7 +72,6 @@ public class ControladorContenedor implements ActionListener {
         }
     }
 
-    // 🚀 Panel que se carga apenas inicia sesión
     private void cargarPanelInicial() {
 
         switch (rol) {
@@ -120,7 +118,6 @@ public class ControladorContenedor implements ActionListener {
         }
     }
 
-    // 🔧 MÉTODO GENÉRICO PARA CAMBIAR PANEL
     private void cambiarPanel(JPanel panel) {
 
         vista.jPanel3.removeAll();
@@ -131,14 +128,12 @@ public class ControladorContenedor implements ActionListener {
         vista.jPanel3.repaint();
     }
 
-    // ====== PANELES ADMIN ======
     private void mostrarGestionBibliotecarios() {
         GestionBibliotecarios panel = new GestionBibliotecarios();
         new ControladorGestionBibliotecarios(panel);
         cambiarPanel(panel);
     }
-
-    // ====== PANELES BIBLIOTECARIO ======
+    
     private void mostrarGestionEstudiantes() {
         GestionEstudiantes panel = new GestionEstudiantes();
         cambiarPanel(panel);
@@ -154,7 +149,6 @@ public class ControladorContenedor implements ActionListener {
         cambiarPanel(panel);
     }
 
-    // ====== PANELES ESTUDIANTE ======
     private void mostrarConsultaCatalogo() {
         ConsultaCatalogo panel = new ConsultaCatalogo();
         cambiarPanel(panel);
