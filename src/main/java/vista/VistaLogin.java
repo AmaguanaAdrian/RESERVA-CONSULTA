@@ -29,8 +29,8 @@ public class VistaLogin extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jTxt_Usuario = new javax.swing.JTextField();
-        jTxt_Contraseña = new javax.swing.JTextField();
+        jtxt_Usuario = new javax.swing.JTextField();
+        jtxt_Contraseña = new javax.swing.JTextField();
         jbtn_loginBibliotecario = new javax.swing.JButton();
         jbtn_loginAdmin = new javax.swing.JButton();
         jbtn_loginEstudiante = new javax.swing.JButton();
@@ -49,17 +49,17 @@ public class VistaLogin extends javax.swing.JFrame {
 
         jLabel3.setText("Contraseña:");
 
-        jTxt_Usuario.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jTxt_Usuario.addActionListener(new java.awt.event.ActionListener() {
+        jtxt_Usuario.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jtxt_Usuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTxt_UsuarioActionPerformed(evt);
+                jtxt_UsuarioActionPerformed(evt);
             }
         });
 
-        jTxt_Contraseña.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jTxt_Contraseña.addActionListener(new java.awt.event.ActionListener() {
+        jtxt_Contraseña.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jtxt_Contraseña.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTxt_ContraseñaActionPerformed(evt);
+                jtxt_ContraseñaActionPerformed(evt);
             }
         });
 
@@ -100,8 +100,8 @@ public class VistaLogin extends javax.swing.JFrame {
                             .addComponent(jLabel3))
                         .addGap(26, 26, 26)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTxt_Contraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTxt_Usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jtxt_Contraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jtxt_Usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jbtn_loginBibliotecario)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(168, 168, 168)
@@ -121,10 +121,10 @@ public class VistaLogin extends javax.swing.JFrame {
                 .addGap(51, 51, 51)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTxt_Usuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jtxt_Usuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(49, 49, 49)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTxt_Contraseña, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jtxt_Contraseña, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
                 .addComponent(jbtn_loginAdmin)
@@ -151,17 +151,17 @@ public class VistaLogin extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTxt_ContraseñaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTxt_ContraseñaActionPerformed
+    private void jtxt_ContraseñaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtxt_ContraseñaActionPerformed
 
-    }//GEN-LAST:event_jTxt_ContraseñaActionPerformed
+    }//GEN-LAST:event_jtxt_ContraseñaActionPerformed
 
     private void jbtn_loginBibliotecarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtn_loginBibliotecarioActionPerformed
 
     }//GEN-LAST:event_jbtn_loginBibliotecarioActionPerformed
 
-    private void jTxt_UsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTxt_UsuarioActionPerformed
+    private void jtxt_UsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtxt_UsuarioActionPerformed
     
-    }//GEN-LAST:event_jTxt_UsuarioActionPerformed
+    }//GEN-LAST:event_jtxt_UsuarioActionPerformed
 
     private void jbtn_loginAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtn_loginAdminActionPerformed
         // TODO add your handling code here:
@@ -214,10 +214,10 @@ public class VistaLogin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTxt_Contraseña;
-    private javax.swing.JTextField jTxt_Usuario;
-    private javax.swing.JButton jbtn_loginAdmin;
-    private javax.swing.JButton jbtn_loginBibliotecario;
-    private javax.swing.JButton jbtn_loginEstudiante;
+    public javax.swing.JButton jbtn_loginAdmin;
+    public javax.swing.JButton jbtn_loginBibliotecario;
+    public javax.swing.JButton jbtn_loginEstudiante;
+    public javax.swing.JTextField jtxt_Contraseña;
+    public javax.swing.JTextField jtxt_Usuario;
     // End of variables declaration//GEN-END:variables
 }

@@ -3,14 +3,25 @@
  */
 
 package vista;
-
+import vista.VistaLogin;
+import controlador.ControladorLogin;
 /**
  *
  * @author amagu
  */
+
+
 public class Main {
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+
+        // Crear vista
+        VistaLogin login = new VistaLogin();
+
+        // Inyectar controlador
+        new ControladorLogin(login);
+        
+        // Mostrar login
+        login.setVisible(true);
     }
 }

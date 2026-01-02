@@ -27,7 +27,7 @@ public class VistaContenedor extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel2 = new javax.swing.JPanel();
-        jlb_Rol = new javax.swing.JLabel();
+        jlb_Roles = new javax.swing.JLabel();
         jbtn_1 = new javax.swing.JButton();
         jbtn_2 = new javax.swing.JButton();
         jbtn_3 = new javax.swing.JButton();
@@ -42,9 +42,9 @@ public class VistaContenedor extends javax.swing.JFrame {
         jPanel2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanel2.setPreferredSize(new java.awt.Dimension(200, 200));
 
-        jlb_Rol.setFont(new java.awt.Font("Sitka Text", 1, 14)); // NOI18N
-        jlb_Rol.setForeground(new java.awt.Color(255, 255, 255));
-        jlb_Rol.setText("           ROL");
+        jlb_Roles.setFont(new java.awt.Font("Sitka Text", 1, 14)); // NOI18N
+        jlb_Roles.setForeground(new java.awt.Color(255, 255, 255));
+        jlb_Roles.setText("           ROL");
 
         jbtn_1.setBackground(new java.awt.Color(37, 99, 235));
         jbtn_1.setForeground(new java.awt.Color(255, 255, 255));
@@ -83,14 +83,14 @@ public class VistaContenedor extends javax.swing.JFrame {
                     .addComponent(jbtn_2, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jbtn_3, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jbtn_1, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jlb_Rol, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jlb_Roles, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(31, 31, 31))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(16, 16, 16)
-                .addComponent(jlb_Rol, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jlb_Roles, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26)
                 .addComponent(jbtn_1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27)
@@ -181,11 +181,11 @@ public class VistaContenedor extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JButton jbtn_1;
-    private javax.swing.JButton jbtn_2;
-    private javax.swing.JButton jbtn_3;
-    private javax.swing.JLabel jlb_Rol;
+    public javax.swing.JPanel jPanel2;
+    public javax.swing.JPanel jPanel3;
+    public javax.swing.JButton jbtn_1;
+    public javax.swing.JButton jbtn_2;
+    public javax.swing.JButton jbtn_3;
+    public javax.swing.JLabel jlb_Roles;
     // End of variables declaration//GEN-END:variables
 }

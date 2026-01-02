@@ -35,7 +35,7 @@ public class GestionBibliotecarios extends javax.swing.JPanel {
         jbtn_editarBibliotecario = new javax.swing.JButton();
         jbtn_eliminarBibliotecario = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jtable_Bibliotecarios = new javax.swing.JTable();
+        jtb_Bibliotecarios = new javax.swing.JTable();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -53,7 +53,7 @@ public class GestionBibliotecarios extends javax.swing.JPanel {
 
         jbtn_eliminarBibliotecario.setText("Eliminar");
 
-        jtable_Bibliotecarios.setModel(new javax.swing.table.DefaultTableModel(
+        jtb_Bibliotecarios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -64,7 +64,7 @@ public class GestionBibliotecarios extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane2.setViewportView(jtable_Bibliotecarios);
+        jScrollPane2.setViewportView(jtb_Bibliotecarios);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -124,16 +124,15 @@ public class GestionBibliotecarios extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JScrollPane jScrollPane1;
+    public javax.swing.JLabel jLabel1;
+    public javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JButton jbtn_agregarBiblioteario;
-    private javax.swing.JButton jbtn_buscarBibliotecario;
-    private javax.swing.JButton jbtn_editarBibliotecario;
-    private javax.swing.JButton jbtn_eliminarBibliotecario;
-    private javax.swing.JTable jtable_Bibliotecarios;
-    private javax.swing.JTextField jtxt_buscarBibliotecario;
+    public javax.swing.JButton jbtn_agregarBiblioteario;
+    public javax.swing.JButton jbtn_buscarBibliotecario;
+    public javax.swing.JButton jbtn_editarBibliotecario;
+    public javax.swing.JButton jbtn_eliminarBibliotecario;
+    public javax.swing.JTable jtb_Bibliotecarios;
+    public javax.swing.JTextField jtxt_buscarBibliotecario;
     // End of variables declaration//GEN-END:variables
 }

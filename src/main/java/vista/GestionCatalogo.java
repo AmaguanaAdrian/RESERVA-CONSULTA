@@ -28,22 +28,22 @@ public class GestionCatalogo extends javax.swing.JPanel {
 
         jLabel1 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
-        jTabbedPane1 = new javax.swing.JTabbedPane();
-        jPanel1 = new javax.swing.JPanel();
+        jtbt_Catalogo = new javax.swing.JTabbedPane();
+        jp_libros = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jtxt_buscarLibros = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jtable_Libros = new javax.swing.JTable();
-        jbnt_agregarCatalogo = new javax.swing.JButton();
-        jtbn_editarCatalogo = new javax.swing.JButton();
+        jtb_Libros = new javax.swing.JTable();
+        jbtn_agregarCatalogo = new javax.swing.JButton();
+        jbtn_editarCatalogo = new javax.swing.JButton();
         jbtn_eliminarCatalogo = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
+        jp_Generos = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jtxt_nombreGenero = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jtable_Generos = new javax.swing.JTable();
-        jbnt_agregarGenero = new javax.swing.JButton();
+        jtb_Generos = new javax.swing.JTable();
+        jbtn_agregarGenero = new javax.swing.JButton();
         jtbn_editarGeneros = new javax.swing.JButton();
         jbtn_eliminarGeneros = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
@@ -56,7 +56,7 @@ public class GestionCatalogo extends javax.swing.JPanel {
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel3.setText("Buscar: ");
 
-        jtable_Libros.setModel(new javax.swing.table.DefaultTableModel(
+        jtb_Libros.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -67,14 +67,14 @@ public class GestionCatalogo extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jtable_Libros);
+        jScrollPane1.setViewportView(jtb_Libros);
 
-        jbnt_agregarCatalogo.setText("Agregar");
+        jbtn_agregarCatalogo.setText("Agregar");
 
-        jtbn_editarCatalogo.setText("Editar");
-        jtbn_editarCatalogo.addActionListener(new java.awt.event.ActionListener() {
+        jbtn_editarCatalogo.setText("Editar");
+        jbtn_editarCatalogo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jtbn_editarCatalogoActionPerformed(evt);
+                jbtn_editarCatalogoActionPerformed(evt);
             }
         });
 
@@ -83,37 +83,37 @@ public class GestionCatalogo extends javax.swing.JPanel {
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel5.setText("Lista Libros");
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout jp_librosLayout = new javax.swing.GroupLayout(jp_libros);
+        jp_libros.setLayout(jp_librosLayout);
+        jp_librosLayout.setHorizontalGroup(
+            jp_librosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jp_librosLayout.createSequentialGroup()
                 .addGap(41, 41, 41)
-                .addComponent(jbnt_agregarCatalogo, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jbtn_agregarCatalogo, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jtbn_editarCatalogo, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jbtn_editarCatalogo, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(76, 76, 76)
                 .addComponent(jbtn_eliminarCatalogo, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(41, 41, 41))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jp_librosLayout.createSequentialGroup()
                 .addContainerGap(16, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 462, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(15, 15, 15))
-            .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGroup(jp_librosLayout.createSequentialGroup()
                 .addGap(39, 39, 39)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jp_librosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel5)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGroup(jp_librosLayout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addGap(29, 29, 29)
                         .addComponent(jtxt_buscarLibros, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        jp_librosLayout.setVerticalGroup(
+            jp_librosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jp_librosLayout.createSequentialGroup()
                 .addGap(15, 15, 15)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jp_librosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jtxt_buscarLibros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -121,19 +121,19 @@ public class GestionCatalogo extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jbnt_agregarCatalogo, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jtbn_editarCatalogo, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jp_librosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jbtn_agregarCatalogo, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jbtn_editarCatalogo, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jbtn_eliminarCatalogo, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(29, 29, 29))
         );
 
-        jTabbedPane1.addTab("LIBROS", jPanel1);
+        jtbt_Catalogo.addTab("LIBROS", jp_libros);
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel4.setText("Nombre Genero: ");
 
-        jtable_Generos.setModel(new javax.swing.table.DefaultTableModel(
+        jtb_Generos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -144,9 +144,9 @@ public class GestionCatalogo extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane2.setViewportView(jtable_Generos);
+        jScrollPane2.setViewportView(jtb_Generos);
 
-        jbnt_agregarGenero.setText("Agregar");
+        jbtn_agregarGenero.setText("Agregar");
 
         jtbn_editarGeneros.setText("Editar");
         jtbn_editarGeneros.addActionListener(new java.awt.event.ActionListener() {
@@ -160,49 +160,49 @@ public class GestionCatalogo extends javax.swing.JPanel {
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel2.setText("Lista Generos");
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        javax.swing.GroupLayout jp_GenerosLayout = new javax.swing.GroupLayout(jp_Generos);
+        jp_Generos.setLayout(jp_GenerosLayout);
+        jp_GenerosLayout.setHorizontalGroup(
+            jp_GenerosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jp_GenerosLayout.createSequentialGroup()
                 .addGap(121, 121, 121)
                 .addComponent(jtbn_editarGeneros, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(72, 72, 72)
                 .addComponent(jbtn_eliminarGeneros, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jp_GenerosLayout.createSequentialGroup()
                 .addContainerGap(20, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jp_GenerosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 462, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addGroup(jp_GenerosLayout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jtxt_nombreGenero, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(29, 29, 29)
-                        .addComponent(jbnt_agregarGenero)))
+                        .addComponent(jbtn_agregarGenero)))
                 .addGap(11, 11, 11))
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        jp_GenerosLayout.setVerticalGroup(
+            jp_GenerosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jp_GenerosLayout.createSequentialGroup()
                 .addGap(8, 8, 8)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jp_GenerosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jtxt_nombreGenero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4)
-                    .addComponent(jbnt_agregarGenero))
+                    .addComponent(jbtn_agregarGenero, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jp_GenerosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jtbn_editarGeneros, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jbtn_eliminarGeneros, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("GENEROS", jPanel2);
+        jtbt_Catalogo.addTab("GENEROS", jp_Generos);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -218,7 +218,7 @@ public class GestionCatalogo extends javax.swing.JPanel {
                 .addContainerGap(39, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 493, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jtbt_Catalogo, javax.swing.GroupLayout.PREFERRED_SIZE, 493, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -229,14 +229,14 @@ public class GestionCatalogo extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTabbedPane1)
+                .addComponent(jtbt_Catalogo)
                 .addGap(18, 18, 18))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jtbn_editarCatalogoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtbn_editarCatalogoActionPerformed
+    private void jbtn_editarCatalogoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtn_editarCatalogoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jtbn_editarCatalogoActionPerformed
+    }//GEN-LAST:event_jbtn_editarCatalogoActionPerformed
 
     private void jtbn_editarGenerosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtbn_editarGenerosActionPerformed
         // TODO add your handling code here:
@@ -249,21 +249,21 @@ public class GestionCatalogo extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JButton jbnt_agregarCatalogo;
-    private javax.swing.JButton jbnt_agregarGenero;
-    private javax.swing.JButton jbtn_eliminarCatalogo;
-    private javax.swing.JButton jbtn_eliminarGeneros;
-    private javax.swing.JTable jtable_Generos;
-    private javax.swing.JTable jtable_Libros;
-    private javax.swing.JButton jtbn_editarCatalogo;
-    private javax.swing.JButton jtbn_editarGeneros;
-    private javax.swing.JTextField jtxt_buscarLibros;
-    private javax.swing.JTextField jtxt_nombreGenero;
+    public javax.swing.JButton jbtn_agregarCatalogo;
+    public javax.swing.JButton jbtn_agregarGenero;
+    public javax.swing.JButton jbtn_editarCatalogo;
+    public javax.swing.JButton jbtn_eliminarCatalogo;
+    public javax.swing.JButton jbtn_eliminarGeneros;
+    public javax.swing.JPanel jp_Generos;
+    public javax.swing.JPanel jp_libros;
+    public javax.swing.JTable jtb_Generos;
+    public javax.swing.JTable jtb_Libros;
+    public javax.swing.JButton jtbn_editarGeneros;
+    public javax.swing.JTabbedPane jtbt_Catalogo;
+    public javax.swing.JTextField jtxt_buscarLibros;
+    public javax.swing.JTextField jtxt_nombreGenero;
     // End of variables declaration//GEN-END:variables
 }

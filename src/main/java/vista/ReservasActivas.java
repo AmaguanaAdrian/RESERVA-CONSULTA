@@ -30,14 +30,14 @@ public class ReservasActivas extends javax.swing.JPanel {
         jSeparator1 = new javax.swing.JSeparator();
         jScrollPane3 = new javax.swing.JScrollPane();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jtable_ReservasActivas = new javax.swing.JTable();
+        jtb_ReservasActivas = new javax.swing.JTable();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel1.setFont(new java.awt.Font("Sitka Text", 1, 24)); // NOI18N
         jLabel1.setText("RESERVAS ACTIVAS");
 
-        jtable_ReservasActivas.setModel(new javax.swing.table.DefaultTableModel(
+        jtb_ReservasActivas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -48,7 +48,7 @@ public class ReservasActivas extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane2.setViewportView(jtable_ReservasActivas);
+        jScrollPane2.setViewportView(jtb_ReservasActivas);
 
         jScrollPane3.setViewportView(jScrollPane2);
 
@@ -82,10 +82,9 @@ public class ReservasActivas extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTable jtable_ReservasActivas;
+    private javax.swing.JTable jtb_ReservasActivas;
     // End of variables declaration//GEN-END:variables
 }
