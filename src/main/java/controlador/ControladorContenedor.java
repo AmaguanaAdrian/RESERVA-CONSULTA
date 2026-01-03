@@ -24,7 +24,7 @@ public class ControladorContenedor implements ActionListener {
 
     private VistaContenedor vista;
     private String rol;
-
+    
     public ControladorContenedor(VistaContenedor vista, String rol) {
         this.vista = vista;
         this.rol = rol;
@@ -139,10 +139,11 @@ public class ControladorContenedor implements ActionListener {
         cambiarPanel(panel);
     }
 
-    private void mostrarGestionCatalogo() {
-        GestionCatalogo panel = new GestionCatalogo();
-        cambiarPanel(panel);
-    }
+       private void mostrarGestionCatalogo() {
+    GestionCatalogo panel = new GestionCatalogo();
+    new ControladorGestionCatalogo(panel); // <-- Aquí le das vida al panel
+    cambiarPanel(panel);
+}
 
     private void mostrarReservasActivas() {
         ReservasActivas panel = new ReservasActivas();
@@ -158,4 +159,7 @@ public class ControladorContenedor implements ActionListener {
         MisReservas panel = new MisReservas();
         cambiarPanel(panel);
     }
+    
+    
+    
 }
