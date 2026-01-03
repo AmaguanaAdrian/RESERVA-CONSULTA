@@ -5,16 +5,14 @@
 package controlador;
 import vista.VistaLogin;
 import vista.VistaContenedor;
-
-import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 import modelo.UsuarioDAO;
 /**
  *
  * @author amagu
  */
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JOptionPane;
 
 public class ControladorLogin implements ActionListener {
 
@@ -35,13 +33,9 @@ public class ControladorLogin implements ActionListener {
 
         if (e.getSource() == vista.jbtn_loginAdmin) {
             procesarLogin("ADMIN");
-        }
-
-        if (e.getSource() == vista.jbtn_loginBibliotecario) {
+        } else if (e.getSource() == vista.jbtn_loginBibliotecario) {
             procesarLogin("BIBLIOTECARIO");
-        }
-
-        if (e.getSource() == vista.jbtn_loginEstudiante) {
+        } else if (e.getSource() == vista.jbtn_loginEstudiante) {
             procesarLogin("ESTUDIANTE");
         }
     }
@@ -49,12 +43,14 @@ public class ControladorLogin implements ActionListener {
     private void procesarLogin(String rolEsperado) {
 
         String cedula = vista.jtxt_Usuario.getText().trim();
-        String contrasena = vista.jtxt_Contraseña.getText().trim();
+        String contrasena = new String(vista.jtxt_Contraseña.getText()).trim();
 
         if (cedula.isEmpty() || contrasena.isEmpty()) {
             JOptionPane.showMessageDialog(
                     vista,
-                    "Ingrese usuario y contraseña"
+                    "Ingrese usuario y contraseña",
+                    "Campos vacíos",
+                    JOptionPane.WARNING_MESSAGE
             );
             return;
         }
@@ -64,7 +60,9 @@ public class ControladorLogin implements ActionListener {
         if (rolBD == null) {
             JOptionPane.showMessageDialog(
                     vista,
-                    "Usuario o contraseña incorrectos"
+                    "Usuario o contraseña incorrectos",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE
             );
             return;
         }
@@ -72,16 +70,22 @@ public class ControladorLogin implements ActionListener {
         if (!rolBD.equals(rolEsperado)) {
             JOptionPane.showMessageDialog(
                     vista,
-                    "Acceso denegado para este rol"
+                    "Acceso denegado para este rol",
+                    "Acceso restringido",
+                    JOptionPane.ERROR_MESSAGE
             );
             return;
         }
 
+        // ================= ABRIR CONTENEDOR =================
         VistaContenedor contenedor = new VistaContenedor();
         new ControladorContenedor(contenedor, rolBD);
 
-        contenedor.setVisible(true);
-        vista.dispose();
+        contenedor.pack();                      // 🔥 OBLIGATORIO
+        contenedor.setLocationRelativeTo(null); // 🔥 CENTRAR
+        contenedor.setVisible(true);            // 🔥 MOSTRAR
+
+        vista.dispose(); // cerrar login
     }
 }
 

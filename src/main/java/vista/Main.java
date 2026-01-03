@@ -3,7 +3,6 @@
  */
 
 package vista;
-import vista.VistaLogin;
 import controlador.ControladorLogin;
 /**
  *
@@ -11,17 +10,22 @@ import controlador.ControladorLogin;
  */
 
 
+import javax.swing.SwingUtilities;
+
 public class Main {
 
     public static void main(String[] args) {
 
-        // Crear vista
-        VistaLogin login = new VistaLogin();
+        SwingUtilities.invokeLater(() -> {
 
-        // Inyectar controlador
-        new ControladorLogin(login);
-        
-        // Mostrar login
-        login.setVisible(true);
+            // ================= LOGIN =================
+            VistaLogin login = new VistaLogin();
+            new ControladorLogin(login);
+
+            login.pack();                      // Ajusta tamaño real
+            login.setLocationRelativeTo(null); // Centra en pantalla
+            login.setVisible(true);            // Muestra
+        });
     }
 }
+
