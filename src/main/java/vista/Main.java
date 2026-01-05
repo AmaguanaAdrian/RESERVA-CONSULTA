@@ -18,7 +18,6 @@ public class Main {
 
         SwingUtilities.invokeLater(() -> {
 
-            // ================= LOGIN =================
             VistaLogin login = new VistaLogin();
             new ControladorLogin(login);
 

@@ -80,6 +80,7 @@ public class UsuarioDAO {
                 Usuario u = new Usuario();
                 u.setIdUsuario(rs.getInt("id_usuario"));
                 u.setCedula(rs.getString("cedula"));
+                u.setRol(rs.getString("rol"));
                 u.setEstado(rs.getString("estado"));
                 lista.add(u);
             }

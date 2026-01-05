@@ -7,6 +7,7 @@ modelo\AutorDAO.class
 modelo\Libro.class
 modelo\UsuarioDAO.class
 vista\GestionCatalogo$1.class
+controlador\ControladorGestionBibliotecarios$1.class
 vista\GestionEstudiantes.class
 vista\GestionCatalogo$3.class
 vista\VistaLogin$5.class
