@@ -25,7 +25,6 @@ public class GestionBibliotecarios extends javax.swing.JPanel {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        java.awt.GridBagConstraints gridBagConstraints;
 
         jSeparator1 = new javax.swing.JSeparator();
         jLabel1 = new javax.swing.JLabel();
@@ -39,83 +38,34 @@ public class GestionBibliotecarios extends javax.swing.JPanel {
         jtb_Bibliotecarios = new javax.swing.JTable();
 
         setBackground(new java.awt.Color(255, 255, 255));
-        setLayout(new java.awt.GridBagLayout());
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.gridwidth = 7;
-        gridBagConstraints.ipadx = 503;
-        gridBagConstraints.ipady = 9;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(6, 16, 0, 0);
-        add(jSeparator1, gridBagConstraints);
+        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 50, 630, 10));
 
         jLabel1.setFont(new java.awt.Font("Sitka Text", 1, 24)); // NOI18N
         jLabel1.setText("GESTION DE BIBLIOTECARIOS");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 3;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(13, 16, 0, 0);
-        add(jLabel1, gridBagConstraints);
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 13, -1, -1));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel2.setText("Usuario: ");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(6, 28, 0, 0);
-        add(jLabel2, gridBagConstraints);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.gridheight = 2;
-        gridBagConstraints.ipadx = 182;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(6, 18, 0, 0);
-        add(jtxt_buscarBibliotecario, gridBagConstraints);
+        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, -1, -1));
+        add(jtxt_buscarBibliotecario, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 70, 170, 20));
 
         jbtn_buscarBibliotecario.setText("Buscar");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.gridwidth = 4;
-        gridBagConstraints.gridheight = 3;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(6, 31, 0, 0);
-        add(jbtn_buscarBibliotecario, gridBagConstraints);
+        add(jbtn_buscarBibliotecario, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 60, -1, 30));
 
         jbtn_agregarBiblioteario.setText("Agregar");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 6;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.gridwidth = 8;
-        gridBagConstraints.gridheight = 3;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(6, 18, 0, 0);
-        add(jbtn_agregarBiblioteario, gridBagConstraints);
+        add(jbtn_agregarBiblioteario, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 60, -1, 30));
 
         jbtn_editarBibliotecario.setText("Editar");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 6;
-        gridBagConstraints.gridy = 5;
-        gridBagConstraints.gridwidth = 8;
-        gridBagConstraints.ipady = 38;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(30, 18, 0, 0);
-        add(jbtn_editarBibliotecario, gridBagConstraints);
+        jbtn_editarBibliotecario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtn_editarBibliotecarioActionPerformed(evt);
+            }
+        });
+        add(jbtn_editarBibliotecario, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 60, 80, 30));
 
         jbtn_eliminarBibliotecario.setText("Eliminar");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 6;
-        gridBagConstraints.gridy = 6;
-        gridBagConstraints.gridwidth = 9;
-        gridBagConstraints.ipady = 36;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(46, 18, 0, 35);
-        add(jbtn_eliminarBibliotecario, gridBagConstraints);
+        add(jbtn_eliminarBibliotecario, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 60, 80, 30));
 
         jtb_Bibliotecarios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -130,20 +80,12 @@ public class GestionBibliotecarios extends javax.swing.JPanel {
         ));
         jScrollPane2.setViewportView(jtb_Bibliotecarios);
 
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 5;
-        gridBagConstraints.gridwidth = 6;
-        gridBagConstraints.gridheight = 3;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.ipadx = 417;
-        gridBagConstraints.ipady = 170;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(18, 16, 29, 0);
-        add(jScrollPane2, gridBagConstraints);
+        add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 107, 630, 190));
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jbtn_editarBibliotecarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtn_editarBibliotecarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jbtn_editarBibliotecarioActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

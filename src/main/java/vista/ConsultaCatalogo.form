@@ -33,11 +33,11 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="53" max="-2" attributes="0"/>
                       <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="jtxt_buscarLibros" min="-2" pref="402" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace pref="137" max="32767" attributes="0"/>
+              <EmptySpace pref="147" max="32767" attributes="0"/>
           </Group>
           <Component id="jScrollPane1" alignment="0" pref="663" max="32767" attributes="0"/>
       </Group>
@@ -55,7 +55,7 @@
                   <Component id="jtxt_buscarLibros" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jScrollPane1" pref="304" max="32767" attributes="0"/>
+              <Component id="jScrollPane1" pref="288" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>

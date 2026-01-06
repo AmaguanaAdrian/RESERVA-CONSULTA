@@ -16,8 +16,6 @@ import vista.GestionBibliotecarios;
  * @author amagu
  */
 
-
-
 public class ControladorGestionBibliotecarios implements ActionListener {
 
     private GestionBibliotecarios panel;
@@ -42,7 +40,7 @@ public class ControladorGestionBibliotecarios implements ActionListener {
     private void configurarTabla() {
 
         modeloTabla = new DefaultTableModel(
-                new Object[]{"ID", "Cédula", "ROL", "Estado"}, 0
+                new Object[]{"Id", "Cédula", "Rol", "Estado"}, 0
         ) {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -90,7 +88,7 @@ public class ControladorGestionBibliotecarios implements ActionListener {
             eliminarBibliotecario();
         }
     }
-
+    
     // ================= CRUD =================
 
     private void agregarBibliotecario() {
@@ -189,10 +187,9 @@ public class ControladorGestionBibliotecarios implements ActionListener {
             if (usuarioDAO.eliminarBibliotecario(id)) {
                 cargarBibliotecarios();
                 JOptionPane.showMessageDialog(panel, "Bibliotecario eliminado");
-            } else {
-                JOptionPane.showMessageDialog(panel, "Error al eliminar");
+            } else                 JOptionPane.showMessageDialog(panel, "Error al eliminar");{
+
             }
         }
     }
 }
-
