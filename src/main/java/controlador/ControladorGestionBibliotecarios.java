@@ -3,18 +3,26 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package controlador;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.List;
+
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
+import javax.swing.JPopupMenu;
+import javax.swing.SwingUtilities;
 import modelo.Usuario;
 import modelo.UsuarioDAO;
+import vista.DialogBibliotecario;
 import vista.GestionBibliotecarios;
+import java.awt.Frame;
+import java.awt.Window;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.table.DefaultTableModel;
+import Utilidades.AppUtils;
 /**
  *
  * @author amagu
  */
+
 
 public class ControladorGestionBibliotecarios implements ActionListener {
 
@@ -28,23 +36,122 @@ public class ControladorGestionBibliotecarios implements ActionListener {
 
         configurarTabla();
         cargarBibliotecarios();
+        configurarMenuClickDerecho();
 
         panel.jbtn_agregarBiblioteario.addActionListener(this);
         panel.jbtn_buscarBibliotecario.addActionListener(this);
-        panel.jbtn_editarBibliotecario.addActionListener(this);
-        panel.jbtn_eliminarBibliotecario.addActionListener(this);
+    }
+
+    // ================= EVENTOS PRINCIPALES =================
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
+        if (e.getSource() == panel.jbtn_agregarBiblioteario) {
+            abrirDialogRegistro();
+        }
+
+        if (e.getSource() == panel.jbtn_buscarBibliotecario) {
+            buscarBibliotecario();
+        }
+    }
+
+    // ================= DIALOG REGISTRO =================
+    private void abrirDialogRegistro() {
+
+        Window parent = SwingUtilities.getWindowAncestor(panel);
+        DialogBibliotecario dialog = new DialogBibliotecario((Frame) parent, true);
+
+        // Estado inicial
+        dialog.lblErrorCedula.setVisible(false);
+        dialog.lblErrorPassword.setVisible(false);
+
+        // Restricción cédula (SOLO NÚMEROS, 10 DÍGITOS)
+        AppUtils.soloNumeros(dialog.txtCedula, 10);
+
+        // Botones principales
+        dialog.btnGuardar.addActionListener(e -> guardarBibliotecario(dialog));
+        dialog.btnCancelar.addActionListener(e -> dialog.dispose());
+
+        // Ver / ocultar contraseñas
+        dialog.btnVerPass1.addActionListener(e ->
+                AppUtils.togglePassword(dialog.txtPassword));
+
+        dialog.btnVerPass2.addActionListener(e ->
+                AppUtils.togglePassword(dialog.txtConfirmar));
+
+        dialog.setLocationRelativeTo(panel);
+        dialog.setVisible(true);
+    }
+
+    // ================= GUARDAR =================
+    private void guardarBibliotecario(DialogBibliotecario dialog) {
+
+        boolean valido = true;
+
+        String cedula = dialog.txtCedula.getText().trim();
+        String password = new String(dialog.txtPassword.getPassword());
+        String confirmar = new String(dialog.txtConfirmar.getPassword());
+
+        // Limpiar errores previos
+        AppUtils.limpiarError(dialog.txtCedula, dialog.lblErrorCedula);
+        AppUtils.limpiarError(dialog.txtPassword, dialog.lblErrorPassword);
+
+        // ---------- VALIDAR CÉDULA ----------
+        if (cedula.isEmpty()) {
+            AppUtils.marcarError(dialog.txtCedula, dialog.lblErrorCedula,
+                    "La cédula es obligatoria");
+            valido = false;
+
+        } else if (!AppUtils.validarCedulaEcuatoriana(cedula)) {
+            AppUtils.marcarError(dialog.txtCedula, dialog.lblErrorCedula,
+                    "Cédula ecuatoriana inválida");
+            valido = false;
+        }
+
+        // ---------- VALIDAR CONTRASEÑA ----------
+        if (password.isEmpty()) {
+            AppUtils.marcarError(dialog.txtPassword, dialog.lblErrorPassword,
+                    "La contraseña es obligatoria");
+            valido = false;
+
+        } else if (!AppUtils.validarPassword(password)) {
+            AppUtils.marcarError(dialog.txtPassword, dialog.lblErrorPassword,
+                    "Mínimo 8 caracteres, letras y números");
+            valido = false;
+
+        } else if (!password.equals(confirmar)) {
+            AppUtils.marcarError(dialog.txtPassword, dialog.lblErrorPassword,
+                    "Las contraseñas no coinciden");
+            valido = false;
+        }
+
+        if (!valido) return;
+
+        // ---------- GUARDAR ----------
+        Usuario u = new Usuario();
+        u.setCedula(cedula);
+        u.setContrasena(password);
+        u.setEstado(dialog.cmbEstado.getSelectedItem().toString());
+
+        if (usuarioDAO.agregarBibliotecario(u)) {
+            cargarBibliotecarios();
+            JOptionPane.showMessageDialog(dialog,
+                    "Bibliotecario registrado correctamente",
+                    "Registro exitoso",
+                    JOptionPane.INFORMATION_MESSAGE);
+            dialog.dispose();
+        }
     }
 
     // ================= TABLA =================
-
     private void configurarTabla() {
 
         modeloTabla = new DefaultTableModel(
-                new Object[]{"Id", "Cédula", "Rol", "Estado"}, 0
-        ) {
+                new Object[]{"ID", "Cédula", "ROL", "Estado"}, 0) {
+
             @Override
             public boolean isCellEditable(int row, int column) {
-                return false; // tabla solo lectura
+                return false;
             }
         };
 
@@ -52,12 +159,9 @@ public class ControladorGestionBibliotecarios implements ActionListener {
     }
 
     private void cargarBibliotecarios() {
-
         modeloTabla.setRowCount(0);
 
-        List<Usuario> lista = usuarioDAO.listarBibliotecarios();
-
-        for (Usuario u : lista) {
+        for (Usuario u : usuarioDAO.listarBibliotecarios()) {
             modeloTabla.addRow(new Object[]{
                 u.getIdUsuario(),
                 u.getCedula(),
@@ -67,61 +171,10 @@ public class ControladorGestionBibliotecarios implements ActionListener {
         }
     }
 
-    // ================= EVENTOS =================
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-
-        if (e.getSource() == panel.jbtn_agregarBiblioteario) {
-            agregarBibliotecario();
-        }
-
-        if (e.getSource() == panel.jbtn_buscarBibliotecario) {
-            buscarBibliotecario();
-        }
-
-        if (e.getSource() == panel.jbtn_editarBibliotecario) {
-            editarBibliotecario();
-        }
-
-        if (e.getSource() == panel.jbtn_eliminarBibliotecario) {
-            eliminarBibliotecario();
-        }
-    }
-    
-    // ================= CRUD =================
-
-    private void agregarBibliotecario() {
-
-        String cedula = JOptionPane.showInputDialog(panel, "Ingrese cédula:");
-        String contrasena = JOptionPane.showInputDialog(panel, "Ingrese contraseña:");
-
-        if (cedula == null || contrasena == null || cedula.isEmpty() || contrasena.isEmpty()) {
-            JOptionPane.showMessageDialog(panel, "Datos inválidos");
-            return;
-        }
-
-        Usuario u = new Usuario();
-        u.setCedula(cedula);
-        u.setContrasena(contrasena);
-
-        if (usuarioDAO.agregarBibliotecario(u)) {
-            cargarBibliotecarios();
-            JOptionPane.showMessageDialog(panel, "Bibliotecario agregado correctamente");
-        } else {
-            JOptionPane.showMessageDialog(panel, "Error al agregar bibliotecario");
-        }
-    }
-
+    // ================= BUSCAR =================
     private void buscarBibliotecario() {
 
-        String texto = panel.jtxt_buscarBibliotecario.getText().toLowerCase();
-
-        if (texto.isEmpty()) {
-            cargarBibliotecarios();
-            return;
-        }
-
+        String texto = panel.jtxt_buscarBibliotecario.getText().trim();
         modeloTabla.setRowCount(0);
 
         for (Usuario u : usuarioDAO.listarBibliotecarios()) {
@@ -136,60 +189,88 @@ public class ControladorGestionBibliotecarios implements ActionListener {
         }
     }
 
+    // ================= MENU CONTEXTUAL =================
+    private void configurarMenuClickDerecho() {
+
+        JPopupMenu menu = new JPopupMenu();
+
+        JMenuItem editar = new JMenuItem("Editar");
+        JMenuItem eliminar = new JMenuItem("Eliminar");
+
+        editar.addActionListener(e -> editarBibliotecario());
+        eliminar.addActionListener(e -> eliminarBibliotecario());
+
+        menu.add(editar);
+        menu.add(eliminar);
+
+        panel.jtb_Bibliotecarios.setComponentPopupMenu(menu);
+    }
+
+    // ================= EDITAR =================
     private void editarBibliotecario() {
 
         int fila = panel.jtb_Bibliotecarios.getSelectedRow();
         if (fila == -1) {
-            JOptionPane.showMessageDialog(panel, "Seleccione un bibliotecario");
+            JOptionPane.showMessageDialog(panel,
+                    "Seleccione un bibliotecario");
             return;
         }
 
-        int id = (int) modeloTabla.getValueAt(fila, 0);
-        String cedulaActual = (String) modeloTabla.getValueAt(fila, 1);
-        String estadoActual = (String) modeloTabla.getValueAt(fila, 4);
-
-        String nuevaCedula = JOptionPane.showInputDialog(panel, "Nueva cédula:", cedulaActual);
-        String nuevoEstado = JOptionPane.showInputDialog(panel, "Estado (ACTIVO / INACTIVO):", estadoActual);
-
-        if (nuevaCedula == null || nuevoEstado == null) return;
-
         Usuario u = new Usuario();
-        u.setIdUsuario(id);
-        u.setCedula(nuevaCedula);
-        u.setEstado(nuevoEstado);
+        u.setIdUsuario((int) modeloTabla.getValueAt(fila, 0));
+        u.setCedula((String) modeloTabla.getValueAt(fila, 1));
+        u.setEstado((String) modeloTabla.getValueAt(fila, 3));
 
-        if (usuarioDAO.editarBibliotecario(u)) {
-            cargarBibliotecarios();
-            JOptionPane.showMessageDialog(panel, "Bibliotecario actualizado");
-        } else {
-            JOptionPane.showMessageDialog(panel, "Error al editar");
-        }
+        Window parent = SwingUtilities.getWindowAncestor(panel);
+        DialogBibliotecario dialog =
+                new DialogBibliotecario((Frame) parent, true);
+
+        dialog.txtCedula.setText(u.getCedula());
+        dialog.txtCedula.setEnabled(false);
+        dialog.cmbEstado.setSelectedItem(u.getEstado());
+
+        dialog.btnGuardar.addActionListener(e -> {
+
+            String nuevaPass =
+                    new String(dialog.txtPassword.getPassword());
+
+            if (!nuevaPass.isEmpty() &&
+                AppUtils.validarPassword(nuevaPass)) {
+                u.setContrasena(nuevaPass);
+            }
+
+            u.setEstado(dialog.cmbEstado.getSelectedItem().toString());
+
+            if (usuarioDAO.editarBibliotecario(u)) {
+                cargarBibliotecarios();
+                JOptionPane.showMessageDialog(dialog,
+                        "Bibliotecario actualizado");
+                dialog.dispose();
+            }
+        });
+
+        dialog.btnCancelar.addActionListener(e -> dialog.dispose());
+
+        dialog.setLocationRelativeTo(panel);
+        dialog.setVisible(true);
     }
 
+    // ================= ELIMINAR =================
     private void eliminarBibliotecario() {
 
         int fila = panel.jtb_Bibliotecarios.getSelectedRow();
-        if (fila == -1) {
-            JOptionPane.showMessageDialog(panel, "Seleccione un bibliotecario");
-            return;
-        }
+        if (fila == -1) return;
 
         int id = (int) modeloTabla.getValueAt(fila, 0);
 
-        int op = JOptionPane.showConfirmDialog(
-                panel,
+        int op = JOptionPane.showConfirmDialog(panel,
                 "¿Eliminar bibliotecario?",
                 "Confirmar",
-                JOptionPane.YES_NO_OPTION
-        );
+                JOptionPane.YES_NO_OPTION);
 
         if (op == JOptionPane.YES_OPTION) {
-            if (usuarioDAO.eliminarBibliotecario(id)) {
-                cargarBibliotecarios();
-                JOptionPane.showMessageDialog(panel, "Bibliotecario eliminado");
-            } else                 JOptionPane.showMessageDialog(panel, "Error al eliminar");{
-
-            }
+            usuarioDAO.eliminarBibliotecario(id);
+            cargarBibliotecarios();
         }
     }
 }
