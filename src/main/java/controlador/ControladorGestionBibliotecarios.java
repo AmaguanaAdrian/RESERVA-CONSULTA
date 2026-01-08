@@ -22,8 +22,6 @@ import Utilidades.AppUtils;
  *
  * @author amagu
  */
-
-
 public class ControladorGestionBibliotecarios implements ActionListener {
 
     private GestionBibliotecarios panel;
@@ -65,19 +63,22 @@ public class ControladorGestionBibliotecarios implements ActionListener {
         dialog.lblErrorCedula.setVisible(false);
         dialog.lblErrorPassword.setVisible(false);
 
-        // Restricción cédula (SOLO NÚMEROS, 10 DÍGITOS)
+        // Rol fijo
+        dialog.txtRol.setText("BIBLIOTECARIO");
+        dialog.txtRol.setEnabled(false);
+
+        // Restricción cédula
         AppUtils.soloNumeros(dialog.txtCedula, 10);
 
-        // Botones principales
+        // Botones
         dialog.btnGuardar.addActionListener(e -> guardarBibliotecario(dialog));
         dialog.btnCancelar.addActionListener(e -> dialog.dispose());
 
-        // Ver / ocultar contraseñas
-        dialog.btnVerPass1.addActionListener(e ->
-                AppUtils.togglePassword(dialog.txtPassword));
+        dialog.btnVerPass1.addActionListener(e
+                -> AppUtils.togglePassword(dialog.txtPassword));
 
-        dialog.btnVerPass2.addActionListener(e ->
-                AppUtils.togglePassword(dialog.txtConfirmar));
+        dialog.btnVerPass2.addActionListener(e
+                -> AppUtils.togglePassword(dialog.txtConfirmar));
 
         dialog.setLocationRelativeTo(panel);
         dialog.setVisible(true);
@@ -89,49 +90,57 @@ public class ControladorGestionBibliotecarios implements ActionListener {
         boolean valido = true;
 
         String cedula = dialog.txtCedula.getText().trim();
+        String nombres = dialog.txtNombres.getText().trim();
+        String apellidos = dialog.txtApellidos.getText().trim();
+        String correo = dialog.txtEmail.getText().trim();
         String password = new String(dialog.txtPassword.getPassword());
         String confirmar = new String(dialog.txtConfirmar.getPassword());
 
-        // Limpiar errores previos
+        // Limpiar errores
         AppUtils.limpiarError(dialog.txtCedula, dialog.lblErrorCedula);
         AppUtils.limpiarError(dialog.txtPassword, dialog.lblErrorPassword);
 
-        // ---------- VALIDAR CÉDULA ----------
-        if (cedula.isEmpty()) {
+        // ---------- VALIDACIONES ----------
+        if (cedula.isEmpty() || !AppUtils.validarCedulaEcuatoriana(cedula)) {
             AppUtils.marcarError(dialog.txtCedula, dialog.lblErrorCedula,
-                    "La cédula es obligatoria");
-            valido = false;
-
-        } else if (!AppUtils.validarCedulaEcuatoriana(cedula)) {
-            AppUtils.marcarError(dialog.txtCedula, dialog.lblErrorCedula,
-                    "Cédula ecuatoriana inválida");
+                    "Cédula inválida");
             valido = false;
         }
 
-        // ---------- VALIDAR CONTRASEÑA ----------
-        if (password.isEmpty()) {
-            AppUtils.marcarError(dialog.txtPassword, dialog.lblErrorPassword,
-                    "La contraseña es obligatoria");
-            valido = false;
-
-        } else if (!AppUtils.validarPassword(password)) {
-            AppUtils.marcarError(dialog.txtPassword, dialog.lblErrorPassword,
-                    "Mínimo 8 caracteres, letras y números");
-            valido = false;
-
-        } else if (!password.equals(confirmar)) {
-            AppUtils.marcarError(dialog.txtPassword, dialog.lblErrorPassword,
-                    "Las contraseñas no coinciden");
+        if (nombres.isEmpty() || apellidos.isEmpty()) {
+            JOptionPane.showMessageDialog(dialog,
+                    "Nombres y apellidos son obligatorios");
             valido = false;
         }
 
-        if (!valido) return;
+        if (correo.isEmpty()) {
+            JOptionPane.showMessageDialog(dialog,
+                    "El correo es obligatorio");
+            valido = false;
+        }
+
+        if (password.isEmpty()
+                || !AppUtils.validarPassword(password)
+                || !password.equals(confirmar)) {
+
+            AppUtils.marcarError(dialog.txtPassword, dialog.lblErrorPassword,
+                    "Contraseña inválida o no coincide");
+            valido = false;
+        }
+
+        if (!valido) {
+            return;
+        }
 
         // ---------- GUARDAR ----------
         Usuario u = new Usuario();
         u.setCedula(cedula);
+        u.setNombres(nombres);
+        u.setApellidos(apellidos);
+        u.setCorreo(correo);
         u.setContrasena(password);
         u.setEstado(dialog.cmbEstado.getSelectedItem().toString());
+        u.setRol("BIBLIOTECARIO");
 
         if (usuarioDAO.agregarBibliotecario(u)) {
             cargarBibliotecarios();
@@ -147,7 +156,7 @@ public class ControladorGestionBibliotecarios implements ActionListener {
     private void configurarTabla() {
 
         modeloTabla = new DefaultTableModel(
-                new Object[]{"ID", "Cédula", "ROL", "Estado"}, 0) {
+                new Object[]{"ID", "Cédula", "Rol", "Estado"}, 0) {
 
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -159,6 +168,7 @@ public class ControladorGestionBibliotecarios implements ActionListener {
     }
 
     private void cargarBibliotecarios() {
+
         modeloTabla.setRowCount(0);
 
         for (Usuario u : usuarioDAO.listarBibliotecarios()) {
@@ -222,8 +232,8 @@ public class ControladorGestionBibliotecarios implements ActionListener {
         u.setEstado((String) modeloTabla.getValueAt(fila, 3));
 
         Window parent = SwingUtilities.getWindowAncestor(panel);
-        DialogBibliotecario dialog =
-                new DialogBibliotecario((Frame) parent, true);
+        DialogBibliotecario dialog
+                = new DialogBibliotecario((Frame) parent, true);
 
         dialog.txtCedula.setText(u.getCedula());
         dialog.txtCedula.setEnabled(false);
@@ -231,11 +241,11 @@ public class ControladorGestionBibliotecarios implements ActionListener {
 
         dialog.btnGuardar.addActionListener(e -> {
 
-            String nuevaPass =
-                    new String(dialog.txtPassword.getPassword());
+            String nuevaPass
+                    = new String(dialog.txtPassword.getPassword());
 
-            if (!nuevaPass.isEmpty() &&
-                AppUtils.validarPassword(nuevaPass)) {
+            if (!nuevaPass.isEmpty()
+                    && AppUtils.validarPassword(nuevaPass)) {
                 u.setContrasena(nuevaPass);
             }
 
@@ -250,7 +260,6 @@ public class ControladorGestionBibliotecarios implements ActionListener {
         });
 
         dialog.btnCancelar.addActionListener(e -> dialog.dispose());
-
         dialog.setLocationRelativeTo(panel);
         dialog.setVisible(true);
     }
@@ -259,7 +268,9 @@ public class ControladorGestionBibliotecarios implements ActionListener {
     private void eliminarBibliotecario() {
 
         int fila = panel.jtb_Bibliotecarios.getSelectedRow();
-        if (fila == -1) return;
+        if (fila == -1) {
+            return;
+        }
 
         int id = (int) modeloTabla.getValueAt(fila, 0);
 

@@ -1,25 +1,25 @@
-C:\Users\ESTEFANIA\Documents\NetBeansProjects\Nueva carpeta\RESERVA-CONSULTA\src\main\java\vista\VistaLogin.java
-C:\Users\ESTEFANIA\Documents\NetBeansProjects\Nueva carpeta\RESERVA-CONSULTA\src\main\java\BDD\Config.java
-C:\Users\ESTEFANIA\Documents\NetBeansProjects\Nueva carpeta\RESERVA-CONSULTA\src\main\java\modelo\Usuario.java
-C:\Users\ESTEFANIA\Documents\NetBeansProjects\Nueva carpeta\RESERVA-CONSULTA\src\main\java\controlador\ControladorGestionBibliotecarios.java
-C:\Users\ESTEFANIA\Documents\NetBeansProjects\Nueva carpeta\RESERVA-CONSULTA\src\main\java\vista\Main.java
-C:\Users\ESTEFANIA\Documents\NetBeansProjects\Nueva carpeta\RESERVA-CONSULTA\src\main\java\modelo\Libro.java
-C:\Users\ESTEFANIA\Documents\NetBeansProjects\Nueva carpeta\RESERVA-CONSULTA\src\main\java\vista\DialogBibliotecario.java
-C:\Users\ESTEFANIA\Documents\NetBeansProjects\Nueva carpeta\RESERVA-CONSULTA\src\main\java\modelo\AutorDAO.java
-C:\Users\ESTEFANIA\Documents\NetBeansProjects\Nueva carpeta\RESERVA-CONSULTA\src\main\java\Utilidades\AppUtils.java
-C:\Users\ESTEFANIA\Documents\NetBeansProjects\Nueva carpeta\RESERVA-CONSULTA\src\main\java\vista\GestionCatalogo.java
-C:\Users\ESTEFANIA\Documents\NetBeansProjects\Nueva carpeta\RESERVA-CONSULTA\src\main\java\controlador\ControladorGestionCatalogo.java
-C:\Users\ESTEFANIA\Documents\NetBeansProjects\Nueva carpeta\RESERVA-CONSULTA\src\main\java\vista\VistaContenedor.java
-C:\Users\ESTEFANIA\Documents\NetBeansProjects\Nueva carpeta\RESERVA-CONSULTA\src\main\java\modelo\Autor.java
-C:\Users\ESTEFANIA\Documents\NetBeansProjects\Nueva carpeta\RESERVA-CONSULTA\src\main\java\controlador\ControladorContenedor.java
-C:\Users\ESTEFANIA\Documents\NetBeansProjects\Nueva carpeta\RESERVA-CONSULTA\src\main\java\vista\GestionEstudiantes.java
-C:\Users\ESTEFANIA\Documents\NetBeansProjects\Nueva carpeta\RESERVA-CONSULTA\src\main\java\vista\ReservasActivas.java
-C:\Users\ESTEFANIA\Documents\NetBeansProjects\Nueva carpeta\RESERVA-CONSULTA\src\main\java\vista\ConsultaCatalogo.java
-C:\Users\ESTEFANIA\Documents\NetBeansProjects\Nueva carpeta\RESERVA-CONSULTA\src\main\java\modelo\UsuarioDAO.java
-C:\Users\ESTEFANIA\Documents\NetBeansProjects\Nueva carpeta\RESERVA-CONSULTA\src\main\java\modelo\Genero.java
-C:\Users\ESTEFANIA\Documents\NetBeansProjects\Nueva carpeta\RESERVA-CONSULTA\src\main\java\vista\GestionBibliotecarios.java
-C:\Users\ESTEFANIA\Documents\NetBeansProjects\Nueva carpeta\RESERVA-CONSULTA\src\main\java\controlador\ControladorLogin.java
-C:\Users\ESTEFANIA\Documents\NetBeansProjects\Nueva carpeta\RESERVA-CONSULTA\src\main\java\vista\MisReservas.java
-C:\Users\ESTEFANIA\Documents\NetBeansProjects\Nueva carpeta\RESERVA-CONSULTA\src\main\java\modelo\GeneroDAO.java
-C:\Users\ESTEFANIA\Documents\NetBeansProjects\Nueva carpeta\RESERVA-CONSULTA\src\main\java\modelo\LibroDAO.java
-C:\Users\ESTEFANIA\Documents\NetBeansProjects\Nueva carpeta\RESERVA-CONSULTA\src\main\java\modelo\ValidadorCedula.java
+C:\Users\amagu\OneDrive\Documentos\NetBeansProjects\PROYECTO2DO\src\main\java\vista\DialogBibliotecario.java
+C:\Users\amagu\OneDrive\Documentos\NetBeansProjects\PROYECTO2DO\src\main\java\modelo\Usuario.java
+C:\Users\amagu\OneDrive\Documentos\NetBeansProjects\PROYECTO2DO\src\main\java\modelo\LibroDAO.java
+C:\Users\amagu\OneDrive\Documentos\NetBeansProjects\PROYECTO2DO\src\main\java\Utilidades\AppUtils.java
+C:\Users\amagu\OneDrive\Documentos\NetBeansProjects\PROYECTO2DO\src\main\java\vista\MisReservas.java
+C:\Users\amagu\OneDrive\Documentos\NetBeansProjects\PROYECTO2DO\src\main\java\controlador\ControladorContenedor.java
+C:\Users\amagu\OneDrive\Documentos\NetBeansProjects\PROYECTO2DO\src\main\java\controlador\ControladorLogin.java
+C:\Users\amagu\OneDrive\Documentos\NetBeansProjects\PROYECTO2DO\src\main\java\vista\GestionCatalogo.java
+C:\Users\amagu\OneDrive\Documentos\NetBeansProjects\PROYECTO2DO\src\main\java\vista\GestionBibliotecarios.java
+C:\Users\amagu\OneDrive\Documentos\NetBeansProjects\PROYECTO2DO\src\main\java\vista\VistaLogin.java
+C:\Users\amagu\OneDrive\Documentos\NetBeansProjects\PROYECTO2DO\src\main\java\modelo\ValidadorCedula.java
+C:\Users\amagu\OneDrive\Documentos\NetBeansProjects\PROYECTO2DO\src\main\java\modelo\AutorDAO.java
+C:\Users\amagu\OneDrive\Documentos\NetBeansProjects\PROYECTO2DO\src\main\java\vista\VistaContenedor.java
+C:\Users\amagu\OneDrive\Documentos\NetBeansProjects\PROYECTO2DO\src\main\java\modelo\GeneroDAO.java
+C:\Users\amagu\OneDrive\Documentos\NetBeansProjects\PROYECTO2DO\src\main\java\BDD\Config.java
+C:\Users\amagu\OneDrive\Documentos\NetBeansProjects\PROYECTO2DO\src\main\java\modelo\Genero.java
+C:\Users\amagu\OneDrive\Documentos\NetBeansProjects\PROYECTO2DO\src\main\java\vista\Main.java
+C:\Users\amagu\OneDrive\Documentos\NetBeansProjects\PROYECTO2DO\src\main\java\vista\GestionEstudiantes.java
+C:\Users\amagu\OneDrive\Documentos\NetBeansProjects\PROYECTO2DO\src\main\java\modelo\Libro.java
+C:\Users\amagu\OneDrive\Documentos\NetBeansProjects\PROYECTO2DO\src\main\java\controlador\ControladorGestionCatalogo.java
+C:\Users\amagu\OneDrive\Documentos\NetBeansProjects\PROYECTO2DO\src\main\java\vista\ConsultaCatalogo.java
+C:\Users\amagu\OneDrive\Documentos\NetBeansProjects\PROYECTO2DO\src\main\java\vista\ReservasActivas.java
+C:\Users\amagu\OneDrive\Documentos\NetBeansProjects\PROYECTO2DO\src\main\java\controlador\ControladorGestionBibliotecarios.java
+C:\Users\amagu\OneDrive\Documentos\NetBeansProjects\PROYECTO2DO\src\main\java\modelo\UsuarioDAO.java
+C:\Users\amagu\OneDrive\Documentos\NetBeansProjects\PROYECTO2DO\src\main\java\modelo\Autor.java
