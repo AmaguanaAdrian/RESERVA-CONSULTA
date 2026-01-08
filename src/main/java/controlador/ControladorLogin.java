@@ -1,17 +1,13 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package controlador;
+
 import vista.VistaLogin;
 import vista.VistaContenedor;
 import modelo.UsuarioDAO;
-/**
- *
- * @author amagu
- */
+import modelo.ValidadorCedula; // Importamos tu validador
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 
 public class ControladorLogin implements ActionListener {
@@ -23,69 +19,71 @@ public class ControladorLogin implements ActionListener {
         this.vista = vista;
         this.usuarioDAO = new UsuarioDAO();
 
-        vista.jbtn_loginAdmin.addActionListener(this);
-        vista.jbtn_loginBibliotecario.addActionListener(this);
-        vista.jbtn_loginEstudiante.addActionListener(this);
+        // Escuchar el botón de inicio de sesión
+        this.vista.jbtn_loginAdmin.addActionListener(this);
+
+        // --- RESTRICCIÓN: Solo números en el campo Usuario (Cédula) ---
+        this.vista.jtxt_Usuario.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                // Si no es un número y no es la tecla de borrar, ignorar el evento
+                if (!Character.isDigit(c) && c != KeyEvent.VK_BACK_SPACE) {
+                    e.consume(); 
+                }
+                // Opcional: Limitar a 10 caracteres (longitud de la cédula)
+                if (vista.jtxt_Usuario.getText().length() >= 10) {
+                    e.consume();
+                }
+            }
+        });
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
         if (e.getSource() == vista.jbtn_loginAdmin) {
-            procesarLogin("ADMIN");
-        } else if (e.getSource() == vista.jbtn_loginBibliotecario) {
-            procesarLogin("BIBLIOTECARIO");
-        } else if (e.getSource() == vista.jbtn_loginEstudiante) {
-            procesarLogin("ESTUDIANTE");
+            procesarLogin();
         }
     }
 
-    private void procesarLogin(String rolEsperado) {
-
+    private void procesarLogin() {
         String cedula = vista.jtxt_Usuario.getText().trim();
-        String contrasena = new String(vista.jtxt_Contraseña.getText()).trim();
+        // Usamos el JPasswordField corregido
+        String contrasena = new String(vista.jpf_Contrasena.getPassword()).trim();
 
+        // 1. Validar campos vacíos
         if (cedula.isEmpty() || contrasena.isEmpty()) {
-            JOptionPane.showMessageDialog(
-                    vista,
-                    "Ingrese usuario y contraseña",
-                    "Campos vacíos",
-                    JOptionPane.WARNING_MESSAGE
-            );
+            JOptionPane.showMessageDialog(vista, "Ingrese usuario y contraseña", 
+                    "Campos vacíos", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
+        // 2. Validar Cédula Ecuatoriana usando tu clase modelo
+        if (!ValidadorCedula.validarCedulaEcuatoriana(cedula)) {
+            JOptionPane.showMessageDialog(vista, "La cédula ingresada no es válida", 
+                    "Cédula Incorrecta", JOptionPane.ERROR_MESSAGE);
+            return; // Detenemos el proceso si la cédula está mal
+        }
+
+        // 3. Si la cédula es válida, consultamos el Rol en la BD
         String rolBD = usuarioDAO.obtenerRol(cedula, contrasena);
 
         if (rolBD == null) {
-            JOptionPane.showMessageDialog(
-                    vista,
-                    "Usuario o contraseña incorrectos",
-                    "Error",
-                    JOptionPane.ERROR_MESSAGE
-            );
-            return;
+            JOptionPane.showMessageDialog(vista, "Usuario o contraseña incorrectos", 
+                    "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            abrirContenedor(rolBD);
         }
+    }
 
-        if (!rolBD.equals(rolEsperado)) {
-            JOptionPane.showMessageDialog(
-                    vista,
-                    "Acceso denegado para este rol",
-                    "Acceso restringido",
-                    JOptionPane.ERROR_MESSAGE
-            );
-            return;
-        }
-
-        // ================= ABRIR CONTENEDOR =================
+    private void abrirContenedor(String rol) {
         VistaContenedor contenedor = new VistaContenedor();
-        new ControladorContenedor(contenedor, rolBD);
+        new ControladorContenedor(contenedor, rol);
 
-        contenedor.pack();                      // 🔥 OBLIGATORIO
-        contenedor.setLocationRelativeTo(null); // 🔥 CENTRAR
-        contenedor.setVisible(true);            // 🔥 MOSTRAR
+        contenedor.pack();
+        contenedor.setLocationRelativeTo(null);
+        contenedor.setVisible(true);
 
-        vista.dispose(); // cerrar login
+        vista.dispose(); 
     }
 }
-

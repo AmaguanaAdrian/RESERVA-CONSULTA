@@ -3,7 +3,7 @@ vista\DialogBibliotecario$3.class
 vista\DialogBibliotecario$4$1.class
 vista\VistaLogin$1.class
 vista\VistaContenedor.class
-vista\VistaLogin$6.class
+controlador\ControladorLogin$1.class
 vista\VistaLogin$3.class
 modelo\AutorDAO.class
 modelo\Libro.class
@@ -15,7 +15,6 @@ modelo\ValidadorCedula.class
 vista\DialogBibliotecario$1.class
 vista\GestionEstudiantes.class
 vista\GestionCatalogo$3.class
-vista\VistaLogin$5.class
 modelo\GeneroDAO.class
 vista\VistaContenedor$2.class
 vista\DialogBibliotecario$2.class
@@ -35,7 +34,6 @@ controlador\ControladorGestionCatalogo.class
 vista\GestionBibliotecarios.class
 Utilidades\AppUtils$1.class
 vista\VistaContenedor$1.class
-vista\VistaLogin$4.class
 BDD\Config.class
 controlador\ControladorLogin.class
 controlador\ControladorContenedor.class

@@ -30,10 +30,8 @@ public class VistaLogin extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jtxt_Usuario = new javax.swing.JTextField();
-        jtxt_Contraseña = new javax.swing.JTextField();
-        jbtn_loginBibliotecario = new javax.swing.JButton();
         jbtn_loginAdmin = new javax.swing.JButton();
-        jbtn_loginEstudiante = new javax.swing.JButton();
+        jpf_Contrasena = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -45,8 +43,10 @@ public class VistaLogin extends javax.swing.JFrame {
         jLabel1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jLabel1.setOpaque(true);
 
+        jLabel2.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
         jLabel2.setText("Usuario:");
 
+        jLabel3.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
         jLabel3.setText("Contraseña:");
 
         jtxt_Usuario.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -56,34 +56,11 @@ public class VistaLogin extends javax.swing.JFrame {
             }
         });
 
-        jtxt_Contraseña.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jtxt_Contraseña.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jtxt_ContraseñaActionPerformed(evt);
-            }
-        });
-
-        jbtn_loginBibliotecario.setFont(new java.awt.Font("Segoe Script", 1, 12)); // NOI18N
-        jbtn_loginBibliotecario.setText("Login Bibliotecario");
-        jbtn_loginBibliotecario.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtn_loginBibliotecarioActionPerformed(evt);
-            }
-        });
-
-        jbtn_loginAdmin.setFont(new java.awt.Font("Segoe Script", 1, 12)); // NOI18N
-        jbtn_loginAdmin.setText("Login Admin");
+        jbtn_loginAdmin.setFont(new java.awt.Font("Arial Black", 1, 12)); // NOI18N
+        jbtn_loginAdmin.setText("Iniciar Sesión");
         jbtn_loginAdmin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtn_loginAdminActionPerformed(evt);
-            }
-        });
-
-        jbtn_loginEstudiante.setFont(new java.awt.Font("Segoe Script", 1, 12)); // NOI18N
-        jbtn_loginEstudiante.setText("Login Estudiante");
-        jbtn_loginEstudiante.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtn_loginEstudianteActionPerformed(evt);
             }
         });
 
@@ -92,45 +69,40 @@ public class VistaLogin extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jbtn_loginBibliotecario, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jbtn_loginEstudiante, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jbtn_loginAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGap(88, 88, 88)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jLabel2)
-                                .addComponent(jLabel3))
-                            .addGap(26, 26, 26)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jtxt_Contraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jtxt_Usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGap(168, 168, 168)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(122, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(88, 88, 88)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3))
+                        .addGap(26, 26, 26)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jtxt_Usuario, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)
+                            .addComponent(jpf_Contrasena)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(140, 140, 140)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(143, 143, 143)
+                        .addComponent(jbtn_loginAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(107, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(28, 28, 28)
+                .addGap(35, 35, 35)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(51, 51, 51)
+                .addGap(44, 44, 44)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jtxt_Usuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(49, 49, 49)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jtxt_Contraseña, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+                    .addComponent(jLabel3)
+                    .addComponent(jpf_Contrasena, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(27, 27, 27)
                 .addComponent(jbtn_loginAdmin)
-                .addGap(18, 18, 18)
-                .addComponent(jbtn_loginEstudiante)
-                .addGap(18, 18, 18)
-                .addComponent(jbtn_loginBibliotecario)
-                .addGap(35, 35, 35))
+                .addContainerGap(114, Short.MAX_VALUE))
         );
 
         jLabel1.getAccessibleContext().setAccessibleName("                 EXAMEN");
@@ -140,14 +112,6 @@ public class VistaLogin extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jtxt_ContraseñaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtxt_ContraseñaActionPerformed
-
-    }//GEN-LAST:event_jtxt_ContraseñaActionPerformed
-
-    private void jbtn_loginBibliotecarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtn_loginBibliotecarioActionPerformed
-
-    }//GEN-LAST:event_jbtn_loginBibliotecarioActionPerformed
-
     private void jtxt_UsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtxt_UsuarioActionPerformed
     
     }//GEN-LAST:event_jtxt_UsuarioActionPerformed
@@ -155,10 +119,6 @@ public class VistaLogin extends javax.swing.JFrame {
     private void jbtn_loginAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtn_loginAdminActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jbtn_loginAdminActionPerformed
-
-    private void jbtn_loginEstudianteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtn_loginEstudianteActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jbtn_loginEstudianteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -204,9 +164,7 @@ public class VistaLogin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     public javax.swing.JButton jbtn_loginAdmin;
-    public javax.swing.JButton jbtn_loginBibliotecario;
-    public javax.swing.JButton jbtn_loginEstudiante;
-    public javax.swing.JTextField jtxt_Contraseña;
+    public javax.swing.JPasswordField jpf_Contrasena;
     public javax.swing.JTextField jtxt_Usuario;
     // End of variables declaration//GEN-END:variables
 }
