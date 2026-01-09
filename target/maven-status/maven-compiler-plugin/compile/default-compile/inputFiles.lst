@@ -8,8 +8,10 @@ C:\Users\amagu\OneDrive\Documentos\NetBeansProjects\PROYECTO2DO\src\main\java\co
 C:\Users\amagu\OneDrive\Documentos\NetBeansProjects\PROYECTO2DO\src\main\java\vista\GestionCatalogo.java
 C:\Users\amagu\OneDrive\Documentos\NetBeansProjects\PROYECTO2DO\src\main\java\vista\GestionBibliotecarios.java
 C:\Users\amagu\OneDrive\Documentos\NetBeansProjects\PROYECTO2DO\src\main\java\vista\VistaLogin.java
+C:\Users\amagu\OneDrive\Documentos\NetBeansProjects\PROYECTO2DO\src\main\java\vista\DialogAutorGenero.java
 C:\Users\amagu\OneDrive\Documentos\NetBeansProjects\PROYECTO2DO\src\main\java\modelo\ValidadorCedula.java
 C:\Users\amagu\OneDrive\Documentos\NetBeansProjects\PROYECTO2DO\src\main\java\modelo\AutorDAO.java
+C:\Users\amagu\OneDrive\Documentos\NetBeansProjects\PROYECTO2DO\src\main\java\controlador\ControladorGestionEstudiantes.java
 C:\Users\amagu\OneDrive\Documentos\NetBeansProjects\PROYECTO2DO\src\main\java\vista\VistaContenedor.java
 C:\Users\amagu\OneDrive\Documentos\NetBeansProjects\PROYECTO2DO\src\main\java\modelo\GeneroDAO.java
 C:\Users\amagu\OneDrive\Documentos\NetBeansProjects\PROYECTO2DO\src\main\java\BDD\Config.java
@@ -19,6 +21,7 @@ C:\Users\amagu\OneDrive\Documentos\NetBeansProjects\PROYECTO2DO\src\main\java\vi
 C:\Users\amagu\OneDrive\Documentos\NetBeansProjects\PROYECTO2DO\src\main\java\modelo\Libro.java
 C:\Users\amagu\OneDrive\Documentos\NetBeansProjects\PROYECTO2DO\src\main\java\controlador\ControladorGestionCatalogo.java
 C:\Users\amagu\OneDrive\Documentos\NetBeansProjects\PROYECTO2DO\src\main\java\vista\ConsultaCatalogo.java
+C:\Users\amagu\OneDrive\Documentos\NetBeansProjects\PROYECTO2DO\src\main\java\vista\DialogLibros.java
 C:\Users\amagu\OneDrive\Documentos\NetBeansProjects\PROYECTO2DO\src\main\java\vista\ReservasActivas.java
 C:\Users\amagu\OneDrive\Documentos\NetBeansProjects\PROYECTO2DO\src\main\java\controlador\ControladorGestionBibliotecarios.java
 C:\Users\amagu\OneDrive\Documentos\NetBeansProjects\PROYECTO2DO\src\main\java\modelo\UsuarioDAO.java

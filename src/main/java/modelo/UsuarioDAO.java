@@ -227,5 +227,184 @@ public class UsuarioDAO {
 
         return null; // usuario no válido
     }
+    // ================= AGREGAR ESTUDIANTE =================
+
+    public boolean agregarEstudiante(Usuario u) {
+        // Similar a agregarBibliotecario, pero con rol 'ESTUDIANTE' y tabla 'estudiantes'
+        String sqlUsuario = """
+        INSERT INTO usuarios
+        (cedula, contrasena, nombres, apellidos, correo, rol, estado)
+        VALUES (?, ?, ?, ?, ?, 'ESTUDIANTE', ?)
+    """;
+
+        String sqlEstudiante = """
+        INSERT INTO estudiantes (id_usuario)
+        VALUES (?)
+    """;
+
+        try (Connection con = Config.getConexion()) {
+            con.setAutoCommit(false);
+
+            // 1. Insertar usuario
+            PreparedStatement psUsuario = con.prepareStatement(sqlUsuario, Statement.RETURN_GENERATED_KEYS);
+            psUsuario.setString(1, u.getCedula());
+            psUsuario.setString(2, u.getContrasena());
+            psUsuario.setString(3, u.getNombres());
+            psUsuario.setString(4, u.getApellidos());
+            psUsuario.setString(5, u.getCorreo());
+            psUsuario.setString(6, u.getEstado());
+
+            psUsuario.executeUpdate();
+
+            ResultSet rs = psUsuario.getGeneratedKeys();
+            if (!rs.next()) {
+                con.rollback();
+                return false;
+            }
+
+            int idUsuario = rs.getInt(1);
+
+            // 2. Insertar estudiante
+            PreparedStatement psEstudiante = con.prepareStatement(sqlEstudiante);
+            psEstudiante.setInt(1, idUsuario);
+            psEstudiante.executeUpdate();
+
+            con.commit();
+            return true;
+
+        } catch (SQLIntegrityConstraintViolationException ex) {
+            // Manejo de errores de duplicados
+            if (ex.getMessage().contains("cedula")) {
+                JOptionPane.showMessageDialog(null,
+                        "La cédula ya está registrada",
+                        "Error",
+                        JOptionPane.ERROR_MESSAGE);
+            } else if (ex.getMessage().contains("correo")) {
+                JOptionPane.showMessageDialog(null,
+                        "El correo ya está registrado",
+                        "Error",
+                        JOptionPane.ERROR_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(null,
+                        "Datos duplicados",
+                        "Error",
+                        JOptionPane.ERROR_MESSAGE);
+            }
+            return false;
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null,
+                    "Error al registrar estudiante:\n" + ex.getMessage(),
+                    "Error BD",
+                    JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+    }
+
+// ================= LISTAR ESTUDIANTES =================
+    public List<Usuario> listarEstudiantes() {
+        List<Usuario> lista = new ArrayList<>();
+
+        String sql = """
+        SELECT id_usuario, cedula, nombres, apellidos, correo, estado
+        FROM usuarios
+        WHERE rol = 'ESTUDIANTE'
+    """;
+
+        try (Connection con = Config.getConexion(); PreparedStatement ps = con.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+                Usuario u = new Usuario();
+                u.setIdUsuario(rs.getInt("id_usuario"));
+                u.setCedula(rs.getString("cedula"));
+                u.setNombres(rs.getString("nombres"));
+                u.setApellidos(rs.getString("apellidos"));
+                u.setCorreo(rs.getString("correo"));
+                u.setEstado(rs.getString("estado"));
+                u.setRol("ESTUDIANTE");
+                lista.add(u);
+            }
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null,
+                    "Error al listar estudiantes",
+                    "Error BD",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+
+        return lista;
+    }
+
+// ================= EDITAR ESTUDIANTE =================
+    public boolean editarEstudiante(Usuario u) {
+        // Si se proporciona contraseña, actualizarla, si no, solo estado y datos personales
+        String sql;
+
+        if (u.getContrasena() != null && !u.getContrasena().isEmpty()) {
+            sql = """
+            UPDATE usuarios
+            SET nombres = ?, apellidos = ?, correo = ?, contrasena = ?, estado = ?
+            WHERE id_usuario = ? AND rol = 'ESTUDIANTE'
+        """;
+        } else {
+            sql = """
+            UPDATE usuarios
+            SET nombres = ?, apellidos = ?, correo = ?, estado = ?
+            WHERE id_usuario = ? AND rol = 'ESTUDIANTE'
+        """;
+        }
+
+        try (Connection con = Config.getConexion(); PreparedStatement ps = con.prepareStatement(sql)) {
+
+            if (u.getContrasena() != null && !u.getContrasena().isEmpty()) {
+                ps.setString(1, u.getNombres());
+                ps.setString(2, u.getApellidos());
+                ps.setString(3, u.getCorreo());
+                ps.setString(4, u.getContrasena());
+                ps.setString(5, u.getEstado());
+                ps.setInt(6, u.getIdUsuario());
+            } else {
+                ps.setString(1, u.getNombres());
+                ps.setString(2, u.getApellidos());
+                ps.setString(3, u.getCorreo());
+                ps.setString(4, u.getEstado());
+                ps.setInt(5, u.getIdUsuario());
+            }
+
+            ps.executeUpdate();
+            return true;
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null,
+                    "Error al actualizar estudiante",
+                    "Error BD",
+                    JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+    }
+
+// ================= ELIMINAR ESTUDIANTE =================
+    public boolean eliminarEstudiante(int idUsuario) {
+        // Marcamos como INACTIVO en lugar de eliminar
+        String sql = """
+        UPDATE usuarios
+        SET estado = 'INACTIVO'
+        WHERE id_usuario = ? AND rol = 'ESTUDIANTE'
+    """;
+
+        try (Connection con = Config.getConexion(); PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setInt(1, idUsuario);
+            ps.executeUpdate();
+            return true;
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null,
+                    "No se pudo eliminar el estudiante",
+                    "Error BD",
+                    JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+    }
 
 }

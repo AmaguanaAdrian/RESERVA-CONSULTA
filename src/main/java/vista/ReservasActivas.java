@@ -84,7 +84,7 @@ public class ReservasActivas extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTable jtb_ReservasActivas;
+    public javax.swing.JSeparator jSeparator1;
+    public javax.swing.JTable jtb_ReservasActivas;
     // End of variables declaration//GEN-END:variables
 }

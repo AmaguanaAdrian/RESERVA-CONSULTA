@@ -42,4 +42,3 @@ public class ValidadorCedula {
         return verificador == Character.getNumericValue(cedula.charAt(9));
     }
 }
-

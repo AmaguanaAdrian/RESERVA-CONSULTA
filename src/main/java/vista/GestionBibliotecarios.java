@@ -37,7 +37,7 @@ public class GestionBibliotecarios extends javax.swing.JPanel {
 
         setBackground(new java.awt.Color(255, 255, 255));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 50, 480, 10));
+        add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 50, 500, 10));
 
         jLabel1.setFont(new java.awt.Font("Sitka Text", 1, 24)); // NOI18N
         jLabel1.setText("GESTION DE BIBLIOTECARIOS");
@@ -45,14 +45,19 @@ public class GestionBibliotecarios extends javax.swing.JPanel {
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel2.setText("Usuario: ");
-        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, -1, -1));
-        add(jtxt_buscarBibliotecario, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 70, 170, 20));
+        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, -1, -1));
+        add(jtxt_buscarBibliotecario, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 60, 180, 30));
 
         jbtn_buscarBibliotecario.setText("Buscar");
-        add(jbtn_buscarBibliotecario, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 60, -1, 30));
+        add(jbtn_buscarBibliotecario, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 60, -1, 30));
 
         jbtn_agregarBiblioteario.setText("Agregar");
-        add(jbtn_agregarBiblioteario, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 60, -1, 30));
+        jbtn_agregarBiblioteario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtn_agregarBibliotearioActionPerformed(evt);
+            }
+        });
+        add(jbtn_agregarBiblioteario, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 60, -1, 30));
 
         jtb_Bibliotecarios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -67,15 +72,19 @@ public class GestionBibliotecarios extends javax.swing.JPanel {
         ));
         jScrollPane2.setViewportView(jtb_Bibliotecarios);
 
-        add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 470, 190));
+        add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 500, 210));
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jbtn_agregarBibliotearioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtn_agregarBibliotearioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jbtn_agregarBibliotearioActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JLabel jLabel1;
     public javax.swing.JLabel jLabel2;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JSeparator jSeparator1;
+    public javax.swing.JScrollPane jScrollPane2;
+    public javax.swing.JSeparator jSeparator1;
     public javax.swing.JButton jbtn_agregarBiblioteario;
     public javax.swing.JButton jbtn_buscarBibliotecario;
     public javax.swing.JTable jtb_Bibliotecarios;

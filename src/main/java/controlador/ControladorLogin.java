@@ -29,7 +29,7 @@ public class ControladorLogin implements ActionListener {
                 char c = e.getKeyChar();
                 // Si no es un número y no es la tecla de borrar, ignorar el evento
                 if (!Character.isDigit(c) && c != KeyEvent.VK_BACK_SPACE) {
-                    e.consume(); 
+                    e.consume();
                 }
                 // Opcional: Limitar a 10 caracteres (longitud de la cédula)
                 if (vista.jtxt_Usuario.getText().length() >= 10) {
@@ -53,14 +53,14 @@ public class ControladorLogin implements ActionListener {
 
         // 1. Validar campos vacíos
         if (cedula.isEmpty() || contrasena.isEmpty()) {
-            JOptionPane.showMessageDialog(vista, "Ingrese usuario y contraseña", 
+            JOptionPane.showMessageDialog(vista, "Ingrese usuario y contraseña",
                     "Campos vacíos", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
         // 2. Validar Cédula Ecuatoriana usando tu clase modelo
         if (!ValidadorCedula.validarCedulaEcuatoriana(cedula)) {
-            JOptionPane.showMessageDialog(vista, "La cédula ingresada no es válida", 
+            JOptionPane.showMessageDialog(vista, "La cédula ingresada no es válida",
                     "Cédula Incorrecta", JOptionPane.ERROR_MESSAGE);
             return; // Detenemos el proceso si la cédula está mal
         }
@@ -69,7 +69,7 @@ public class ControladorLogin implements ActionListener {
         String rolBD = usuarioDAO.obtenerRol(cedula, contrasena);
 
         if (rolBD == null) {
-            JOptionPane.showMessageDialog(vista, "Usuario o contraseña incorrectos", 
+            JOptionPane.showMessageDialog(vista, "Usuario o contraseña incorrectos",
                     "Error", JOptionPane.ERROR_MESSAGE);
         } else {
             abrirContenedor(rolBD);
@@ -84,6 +84,6 @@ public class ControladorLogin implements ActionListener {
         contenedor.setLocationRelativeTo(null);
         contenedor.setVisible(true);
 
-        vista.dispose(); 
+        vista.dispose();
     }
 }
