@@ -422,4 +422,105 @@ public final class AppUtils {
             limpiarError(componente, null);
         }
     }
+
+    public static void animarRefresco(Component componente) {
+        Timer timer = new Timer(50, new ActionListener() {
+            float alpha = 1.0f;
+            boolean increasing = false;
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (!increasing) {
+                    alpha -= 0.1f;
+                    if (alpha <= 0.3f) {
+                        increasing = true;
+                    }
+                } else {
+                    alpha += 0.1f;
+                    if (alpha >= 1.0f) {
+                        ((Timer) e.getSource()).stop();
+                        componente.setBackground(Color.WHITE);
+                        return;
+                    }
+                }
+
+                Color original = Color.WHITE;
+                Color animado = new Color(
+                        original.getRed(),
+                        original.getGreen(),
+                        original.getBlue(),
+                        (int) (alpha * 255)
+                );
+
+                componente.setBackground(animado);
+            }
+        });
+        timer.start();
+    }
+
+    public static void animarAgotado(Component componente) {
+        Timer timer = new Timer(50, new ActionListener() {
+            int pulsos = 0;
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (pulsos >= 3) {
+                    ((Timer) e.getSource()).stop();
+                    componente.setBackground(new Color(255, 245, 245)); // Rojo muy claro
+                    return;
+                }
+
+                if (pulsos % 2 == 0) {
+                    componente.setBackground(new Color(255, 220, 220));
+                } else {
+                    componente.setBackground(Color.WHITE);
+                }
+
+                pulsos++;
+            }
+        });
+        timer.start();
+    }
+
+    public static void animarActualizacion(Component componente) {
+        Color original = componente.getForeground();
+        componente.setForeground(new Color(0, 123, 255)); // Azul
+
+        Timer timer = new Timer(1000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                componente.setForeground(original);
+                ((Timer) e.getSource()).stop();
+            }
+        });
+        timer.setRepeats(false);
+        timer.start();
+    }
+
+    public static void animarError(Component componente) {
+        Color original = componente.getBackground();
+
+        Timer timer = new Timer(100, new ActionListener() {
+            int pulsos = 0;
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (pulsos >= 4) {
+                    ((Timer) e.getSource()).stop();
+                    componente.setBackground(original);
+                    return;
+                }
+
+                if (pulsos % 2 == 0) {
+                    componente.setBackground(new Color(220, 53, 69)); // Rojo
+                } else {
+                    componente.setBackground(original);
+                }
+
+                pulsos++;
+            }
+        });
+        timer.start();
+    }
+
 }

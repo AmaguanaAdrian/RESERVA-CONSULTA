@@ -101,4 +101,83 @@ public class LibroDAO {
             return false;
         }
     }
+     public List<LibroCompleto> listarLibrosDisponibles(int limite) {
+        List<LibroCompleto> libros = new ArrayList<>();
+        String sql = "SELECT l.id_libro, l.titulo, l.cantidad_disponible, " +
+                     "a.nombre_autor, g.nombre_genero " +
+                     "FROM libros l " +
+                     "JOIN autores a ON l.id_autor = a.id_autor " +
+                     "JOIN generos g ON l.id_genero = g.id_genero " +
+                     "WHERE l.cantidad_disponible > 0 " +
+                     "ORDER BY l.titulo " +
+                     "LIMIT ?";
+        
+        try (Connection conn = Config.getConexion();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            
+            pstmt.setInt(1, limite);
+            ResultSet rs = pstmt.executeQuery();
+            
+            while (rs.next()) {
+                LibroCompleto libro = new LibroCompleto(
+                    rs.getInt("id_libro"),
+                    rs.getString("titulo"),
+                    rs.getInt("cantidad_disponible"),
+                    0, // idAutor (no necesario para mostrar)
+                    0, // idGenero (no necesario para mostrar)
+                    rs.getString("nombre_autor"),
+                    rs.getString("nombre_genero")
+                );
+                libros.add(libro);
+            }
+            
+        } catch (SQLException e) {
+            System.err.println("Error al listar libros disponibles: " + e.getMessage());
+        }
+        
+        return libros;
+    }
+    
+    public List<LibroCompleto> buscarLibros(String termino, int limite) {
+        List<LibroCompleto> libros = new ArrayList<>();
+        String sql = "SELECT l.id_libro, l.titulo, l.cantidad_disponible, " +
+                     "a.nombre_autor, g.nombre_genero " +
+                     "FROM libros l " +
+                     "JOIN autores a ON l.id_autor = a.id_autor " +
+                     "JOIN generos g ON l.id_genero = g.id_genero " +
+                     "WHERE l.cantidad_disponible > 0 " +
+                     "AND (l.titulo LIKE ? OR a.nombre_autor LIKE ? OR g.nombre_genero LIKE ?) " +
+                     "ORDER BY l.titulo " +
+                     "LIMIT ?";
+        
+        try (Connection conn = Config.getConexion();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            
+            String terminoBusqueda = "%" + termino + "%";
+            pstmt.setString(1, terminoBusqueda);
+            pstmt.setString(2, terminoBusqueda);
+            pstmt.setString(3, terminoBusqueda);
+            pstmt.setInt(4, limite);
+            
+            ResultSet rs = pstmt.executeQuery();
+            
+            while (rs.next()) {
+                LibroCompleto libro = new LibroCompleto(
+                    rs.getInt("id_libro"),
+                    rs.getString("titulo"),
+                    rs.getInt("cantidad_disponible"),
+                    0,
+                    0,
+                    rs.getString("nombre_autor"),
+                    rs.getString("nombre_genero")
+                );
+                libros.add(libro);
+            }
+            
+        } catch (SQLException e) {
+            System.err.println("Error al buscar libros: " + e.getMessage());
+        }
+        
+        return libros;
+    }
 }

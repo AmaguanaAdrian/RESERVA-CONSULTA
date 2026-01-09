@@ -87,10 +87,10 @@ public class MisReservas extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
+    public javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JSeparator jSeparator1;
+    public javax.swing.JSeparator jSeparator1;
     public javax.swing.JTable jtb_ReservasEstudiantes;
     // End of variables declaration//GEN-END:variables
 }

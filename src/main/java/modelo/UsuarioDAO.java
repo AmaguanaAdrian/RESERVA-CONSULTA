@@ -198,34 +198,108 @@ public class UsuarioDAO {
     }
 
     public String obtenerRol(String cedula, String contrasena) {
-
-        String sql = """
-        SELECT rol
-        FROM usuarios
-        WHERE cedula = ?
-          AND contrasena = ?
-          AND estado = 'ACTIVO'
-    """;
-
-        try (Connection con = Config.getConexion(); PreparedStatement ps = con.prepareStatement(sql)) {
-
-            ps.setString(1, cedula);
-            ps.setString(2, contrasena);
-
-            ResultSet rs = ps.executeQuery();
-
+        String sql = "SELECT rol FROM usuarios WHERE cedula = ? AND contrasena = ? AND estado = 'ACTIVO'";
+        
+        try (Connection conn = Config.getConexion();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            
+            pstmt.setString(1, cedula);
+            pstmt.setString(2, contrasena);
+            ResultSet rs = pstmt.executeQuery();
+            
             if (rs.next()) {
                 return rs.getString("rol");
             }
-
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null,
-                    "Error al iniciar sesión",
-                    "Error BD",
-                    JOptionPane.ERROR_MESSAGE);
+            
+        } catch (SQLException e) {
+            System.err.println("Error al obtener rol: " + e.getMessage());
         }
-
-        return null; // usuario no válido
+        
+        return null;
+    }
+    
+    // NUEVO MÉTODO: Autenticar usuario y devolver objeto Usuario completo
+    public Usuario autenticarUsuario(String cedula, String contrasena) {
+        String sql = "SELECT id_usuario, cedula, nombres, apellidos, correo, rol, estado " +
+                     "FROM usuarios WHERE cedula = ? AND contrasena = ?";
+        
+        try (Connection conn = Config.getConexion();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            
+            pstmt.setString(1, cedula);
+            pstmt.setString(2, contrasena);
+            ResultSet rs = pstmt.executeQuery();
+            
+            if (rs.next()) {
+                Usuario usuario = new Usuario();
+                usuario.setIdUsuario(rs.getInt("id_usuario"));
+                usuario.setCedula(rs.getString("cedula"));
+                usuario.setNombres(rs.getString("nombres"));
+                usuario.setApellidos(rs.getString("apellidos"));
+                usuario.setCorreo(rs.getString("correo"));
+                usuario.setRol(rs.getString("rol"));
+                usuario.setEstado(rs.getString("estado"));
+                
+                return usuario;
+            }
+            
+        } catch (SQLException e) {
+            System.err.println("Error en autenticación: " + e.getMessage());
+        }
+        
+        return null;
+    }
+    
+    // NUEVO MÉTODO: Verificar si usuario existe (solo por cédula)
+    public boolean usuarioExiste(String cedula) {
+        String sql = "SELECT COUNT(*) as total FROM usuarios WHERE cedula = ?";
+        
+        try (Connection conn = Config.getConexion();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            
+            pstmt.setString(1, cedula);
+            ResultSet rs = pstmt.executeQuery();
+            
+            if (rs.next()) {
+                return rs.getInt("total") > 0;
+            }
+            
+        } catch (SQLException e) {
+            System.err.println("Error al verificar usuario: " + e.getMessage());
+        }
+        
+        return false;
+    }
+    
+    // NUEVO MÉTODO: Obtener usuario por ID
+    public Usuario obtenerUsuarioPorId(int idUsuario) {
+        String sql = "SELECT id_usuario, cedula, nombres, apellidos, correo, rol, estado " +
+                     "FROM usuarios WHERE id_usuario = ?";
+        
+        try (Connection conn = Config.getConexion();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            
+            pstmt.setInt(1, idUsuario);
+            ResultSet rs = pstmt.executeQuery();
+            
+            if (rs.next()) {
+                Usuario usuario = new Usuario();
+                usuario.setIdUsuario(rs.getInt("id_usuario"));
+                usuario.setCedula(rs.getString("cedula"));
+                usuario.setNombres(rs.getString("nombres"));
+                usuario.setApellidos(rs.getString("apellidos"));
+                usuario.setCorreo(rs.getString("correo"));
+                usuario.setRol(rs.getString("rol"));
+                usuario.setEstado(rs.getString("estado"));
+                
+                return usuario;
+            }
+            
+        } catch (SQLException e) {
+            System.err.println("Error al obtener usuario por ID: " + e.getMessage());
+        }
+        
+        return null;
     }
     // ================= AGREGAR ESTUDIANTE =================
 
@@ -407,4 +481,46 @@ public class UsuarioDAO {
         }
     }
 
+    public Integer obtenerIdEstudiante(int idUsuario) {
+        String sql = "SELECT id_estudiante FROM estudiantes WHERE id_usuario = ?";
+
+        try (Connection conn = Config.getConexion(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, idUsuario);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                return rs.getInt("id_estudiante");
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Error al obtener id_estudiante: " + e.getMessage());
+        }
+
+        return null;
+    }
+
+    public int contarReservasHoy(int idEstudiante) {
+        String sql = "SELECT COUNT(*) as total_reservas "
+                + "FROM reservas "
+                + "WHERE id_estudiante = ? "
+                + "AND estado = 'RESERVADA' "
+                + "AND DATE(fecha_reserva) = CURDATE()";
+
+        try (Connection conn = Config.getConexion(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, idEstudiante);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                return rs.getInt("total_reservas");
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Error al contar reservas: " + e.getMessage());
+        }
+
+        return 0;
+    }
+    
 }
