@@ -69,6 +69,7 @@ public class ConsultaCatalogo extends javax.swing.JPanel {
         btnReservar4 = new javax.swing.JButton();
         btnReservar5 = new javax.swing.JButton();
         lblNombreEstudiante = new javax.swing.JLabel();
+        btnGenerarPdf = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -436,6 +437,13 @@ public class ConsultaCatalogo extends javax.swing.JPanel {
 
         lblNombreEstudiante.setText("jLabel3");
 
+        btnGenerarPdf.setText("Catálogo PDF");
+        btnGenerarPdf.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGenerarPdfActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -454,7 +462,10 @@ public class ConsultaCatalogo extends javax.swing.JPanel {
                         .addGap(53, 53, 53)
                         .addComponent(jLabel2)
                         .addGap(18, 18, 18)
-                        .addComponent(jtxt_buscarLibros, javax.swing.GroupLayout.PREFERRED_SIZE, 402, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jtxt_buscarLibros, javax.swing.GroupLayout.PREFERRED_SIZE, 402, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(26, 26, 26)
+                        .addComponent(btnGenerarPdf)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(17, 17, 17))
             .addComponent(jScrollPane1)
         );
@@ -473,9 +484,10 @@ public class ConsultaCatalogo extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jtxt_buscarLibros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jtxt_buscarLibros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnGenerarPdf))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 422, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 421, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -483,8 +495,13 @@ public class ConsultaCatalogo extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnReservar6ActionPerformed
 
+    private void btnGenerarPdfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarPdfActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnGenerarPdfActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public javax.swing.JButton btnGenerarPdf;
     public javax.swing.JButton btnReservar1;
     public javax.swing.JButton btnReservar2;
     public javax.swing.JButton btnReservar3;

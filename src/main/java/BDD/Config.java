@@ -11,9 +11,9 @@ import java.sql.SQLException;
  */
 public class Config {
     // Datos de configuración (Cámbialos si es necesario)
-    private static final String URL = "jdbc:mysql://localhost:3306/sistema_biblioteca";
+    private static final String URL = "jdbc:mysql://localhost:3306/biblioteca_reservas";
     private static final String USER = "root";
-    private static final String PASS = "1005336308";
+    private static final String PASS = "12345678";
 
     public static Connection getConexion() {
         try {
