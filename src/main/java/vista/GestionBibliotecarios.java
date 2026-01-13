@@ -30,7 +30,6 @@ public class GestionBibliotecarios extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jtxt_buscarBibliotecario = new javax.swing.JTextField();
-        jbtn_buscarBibliotecario = new javax.swing.JButton();
         jbtn_agregarBiblioteario = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jtb_Bibliotecarios = new javax.swing.JTable();
@@ -48,16 +47,13 @@ public class GestionBibliotecarios extends javax.swing.JPanel {
         add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, -1, -1));
         add(jtxt_buscarBibliotecario, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 60, 180, 30));
 
-        jbtn_buscarBibliotecario.setText("Buscar");
-        add(jbtn_buscarBibliotecario, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 60, -1, 30));
-
         jbtn_agregarBiblioteario.setText("Agregar");
         jbtn_agregarBiblioteario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtn_agregarBibliotearioActionPerformed(evt);
             }
         });
-        add(jbtn_agregarBiblioteario, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 60, -1, 30));
+        add(jbtn_agregarBiblioteario, new org.netbeans.lib.awtextra.AbsoluteConstraints(342, 60, 140, 30));
 
         jtb_Bibliotecarios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -86,7 +82,6 @@ public class GestionBibliotecarios extends javax.swing.JPanel {
     public javax.swing.JScrollPane jScrollPane2;
     public javax.swing.JSeparator jSeparator1;
     public javax.swing.JButton jbtn_agregarBiblioteario;
-    public javax.swing.JButton jbtn_buscarBibliotecario;
     public javax.swing.JTable jtb_Bibliotecarios;
     public javax.swing.JTextField jtxt_buscarBibliotecario;
     // End of variables declaration//GEN-END:variables

@@ -196,24 +196,45 @@ public class ReservaDAO {
     }
 
     public int contarReservasEstudianteHoy(int idEstudiante) {
-    // Usamos UPPER para ignorar mayúsculas/minúsculas y comparamos solo la parte DATE
-    String sql = "SELECT COUNT(*) FROM reservas " +
-                 "WHERE id_estudiante = ? " +
-                 "AND UPPER(estado) = 'RESERVADA' " + 
-                 "AND DATE(fecha_reserva) = CURRENT_DATE";
-    
-    try (Connection con = Config.getConexion();
-         PreparedStatement ps = con.prepareStatement(sql)) {
-        ps.setInt(1, idEstudiante);
-        ResultSet rs = ps.executeQuery();
-        if (rs.next()) {
-            int resultado = rs.getInt(1);
-            System.out.println("DEBUG: Reservas encontradas para hoy: " + resultado); // Revisa esto en tu consola
-            return resultado;
+        // Usamos UPPER para ignorar mayúsculas/minúsculas y comparamos solo la parte DATE
+        String sql = "SELECT COUNT(*) FROM reservas "
+                + "WHERE id_estudiante = ? "
+                + "AND UPPER(estado) = 'RESERVADA' "
+                + "AND DATE(fecha_reserva) = CURRENT_DATE";
+
+        try (Connection con = Config.getConexion(); PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setInt(1, idEstudiante);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                int resultado = rs.getInt(1);
+                System.out.println("DEBUG: Reservas encontradas para hoy: " + resultado); // Revisa esto en tu consola
+                return resultado;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-    } catch (SQLException e) {
-        e.printStackTrace();
+        return 0;
     }
-    return 0;
-}
+
+    public boolean tieneReservaActiva(int idEstudiante, int idLibro) {
+        String sql = "SELECT COUNT(*) as total FROM reservas "
+                + "WHERE id_estudiante = ? AND id_libro = ? AND estado = 'RESERVADA'";
+
+        try (Connection conn = Config.getConexion(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, idEstudiante);
+            pstmt.setInt(2, idLibro);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                return rs.getInt("total") > 0;
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Error al verificar reserva activa: " + e.getMessage());
+            e.printStackTrace();
+        }
+
+        return false;
+    }
 }

@@ -105,17 +105,26 @@ public class UsuarioDAO {
         List<Usuario> lista = new ArrayList<>();
 
         String sql = """
-            SELECT id_usuario, cedula, rol, estado
+            SELECT 
+                id_usuario,
+                cedula,
+                nombres,
+                apellidos,
+                correo,
+                rol,
+                estado
             FROM usuarios
-            WHERE rol = 'BIBLIOTECARIO'
+            WHERE rol = 'BIBLIOTECARIO';
         """;
 
         try (Connection con = Config.getConexion(); PreparedStatement ps = con.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
 
             while (rs.next()) {
                 Usuario u = new Usuario();
-                u.setIdUsuario(rs.getInt("id_usuario"));
                 u.setCedula(rs.getString("cedula"));
+                u.setNombres(rs.getString("nombres"));
+                u.setApellidos(rs.getString("apellidos"));
+                u.setCorreo(rs.getString("correo"));
                 u.setRol(rs.getString("rol"));
                 u.setEstado(rs.getString("estado"));
                 lista.add(u);
@@ -197,39 +206,75 @@ public class UsuarioDAO {
         }
     }
 
+    public Usuario buscarPorCedula(String cedula) {
+
+        Usuario u = null;
+
+        String sql = """
+        SELECT id_usuario, cedula, nombres, apellidos, correo, rol, estado
+        FROM usuarios
+        WHERE cedula = ?
+        AND rol = 'BIBLIOTECARIO'
+    """;
+
+        try (Connection con = Config.getConexion(); PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setString(1, cedula);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    u = new Usuario();
+                    u.setIdUsuario(rs.getInt("id_usuario"));
+                    u.setCedula(rs.getString("cedula"));
+                    u.setNombres(rs.getString("nombres"));
+                    u.setApellidos(rs.getString("apellidos"));
+                    u.setCorreo(rs.getString("correo"));
+                    u.setRol(rs.getString("rol"));
+                    u.setEstado(rs.getString("estado"));
+                }
+            }
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null,
+                    "Error al buscar bibliotecario por cédula",
+                    "Error BD",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+
+        return u;
+    }
+
     public String obtenerRol(String cedula, String contrasena) {
         String sql = "SELECT rol FROM usuarios WHERE cedula = ? AND contrasena = ? AND estado = 'ACTIVO'";
-        
-        try (Connection conn = Config.getConexion();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            
+
+        try (Connection conn = Config.getConexion(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
             pstmt.setString(1, cedula);
             pstmt.setString(2, contrasena);
             ResultSet rs = pstmt.executeQuery();
-            
+
             if (rs.next()) {
                 return rs.getString("rol");
             }
-            
+
         } catch (SQLException e) {
             System.err.println("Error al obtener rol: " + e.getMessage());
         }
-        
+
         return null;
     }
-    
+
     // NUEVO MÉTODO: Autenticar usuario y devolver objeto Usuario completo
     public Usuario autenticarUsuario(String cedula, String contrasena) {
-        String sql = "SELECT id_usuario, cedula, nombres, apellidos, correo, rol, estado " +
-                     "FROM usuarios WHERE cedula = ? AND contrasena = ?";
-        
-        try (Connection conn = Config.getConexion();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            
+        String sql = "SELECT id_usuario, cedula, nombres, apellidos, correo, rol, estado "
+                + "FROM usuarios WHERE cedula = ? AND contrasena = ?";
+
+        try (Connection conn = Config.getConexion(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
             pstmt.setString(1, cedula);
             pstmt.setString(2, contrasena);
             ResultSet rs = pstmt.executeQuery();
-            
+
             if (rs.next()) {
                 Usuario usuario = new Usuario();
                 usuario.setIdUsuario(rs.getInt("id_usuario"));
@@ -239,49 +284,47 @@ public class UsuarioDAO {
                 usuario.setCorreo(rs.getString("correo"));
                 usuario.setRol(rs.getString("rol"));
                 usuario.setEstado(rs.getString("estado"));
-                
+
                 return usuario;
             }
-            
+
         } catch (SQLException e) {
             System.err.println("Error en autenticación: " + e.getMessage());
         }
-        
+
         return null;
     }
-    
+
     // NUEVO MÉTODO: Verificar si usuario existe (solo por cédula)
     public boolean usuarioExiste(String cedula) {
         String sql = "SELECT COUNT(*) as total FROM usuarios WHERE cedula = ?";
-        
-        try (Connection conn = Config.getConexion();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            
+
+        try (Connection conn = Config.getConexion(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
             pstmt.setString(1, cedula);
             ResultSet rs = pstmt.executeQuery();
-            
+
             if (rs.next()) {
                 return rs.getInt("total") > 0;
             }
-            
+
         } catch (SQLException e) {
             System.err.println("Error al verificar usuario: " + e.getMessage());
         }
-        
+
         return false;
     }
-    
+
     // NUEVO MÉTODO: Obtener usuario por ID
     public Usuario obtenerUsuarioPorId(int idUsuario) {
-        String sql = "SELECT id_usuario, cedula, nombres, apellidos, correo, rol, estado " +
-                     "FROM usuarios WHERE id_usuario = ?";
-        
-        try (Connection conn = Config.getConexion();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            
+        String sql = "SELECT id_usuario, cedula, nombres, apellidos, correo, rol, estado "
+                + "FROM usuarios WHERE id_usuario = ?";
+
+        try (Connection conn = Config.getConexion(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
             pstmt.setInt(1, idUsuario);
             ResultSet rs = pstmt.executeQuery();
-            
+
             if (rs.next()) {
                 Usuario usuario = new Usuario();
                 usuario.setIdUsuario(rs.getInt("id_usuario"));
@@ -291,14 +334,14 @@ public class UsuarioDAO {
                 usuario.setCorreo(rs.getString("correo"));
                 usuario.setRol(rs.getString("rol"));
                 usuario.setEstado(rs.getString("estado"));
-                
+
                 return usuario;
             }
-            
+
         } catch (SQLException e) {
             System.err.println("Error al obtener usuario por ID: " + e.getMessage());
         }
-        
+
         return null;
     }
     // ================= AGREGAR ESTUDIANTE =================
@@ -522,5 +565,5 @@ public class UsuarioDAO {
 
         return 0;
     }
-    
+
 }
