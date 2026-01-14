@@ -38,4 +38,4 @@ El flujo de trabajo se divide en las siguientes ramas:
 
 1. **Clonar el repositorio:**
    ```bash
-   git clone 
+   git clone https://github.com/AmaguanaAdrian/RESERVA-CONSULTA.git
