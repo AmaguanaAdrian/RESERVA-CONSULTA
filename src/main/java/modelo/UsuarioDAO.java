@@ -358,204 +358,333 @@ public class UsuarioDAO {
 
         return null;
     }
-    // ================= AGREGAR ESTUDIANTE =================
-
-    public boolean agregarEstudiante(Usuario u) {
-        // Similar a agregarBibliotecario, pero con rol 'ESTUDIANTE' y tabla 'estudiantes'
-        String sqlUsuario = """
-        INSERT INTO usuarios
-        (cedula, contrasena, nombres, apellidos, correo, rol, estado)
-        VALUES (?, ?, ?, ?, ?, 'ESTUDIANTE', ?)
-    """;
-
-        String sqlEstudiante = """
-        INSERT INTO estudiantes (id_usuario)
-        VALUES (?)
-    """;
-
-        try (Connection con = Config.getConexion()) {
-            con.setAutoCommit(false);
-
-            // 1. Insertar usuario
-            PreparedStatement psUsuario = con.prepareStatement(sqlUsuario, Statement.RETURN_GENERATED_KEYS);
-            psUsuario.setString(1, u.getCedula());
-            psUsuario.setString(2, u.getContrasena());
-            psUsuario.setString(3, u.getNombres());
-            psUsuario.setString(4, u.getApellidos());
-            psUsuario.setString(5, u.getCorreo());
-            psUsuario.setString(6, u.getEstado());
-
-            psUsuario.executeUpdate();
-
-            ResultSet rs = psUsuario.getGeneratedKeys();
-            if (!rs.next()) {
-                con.rollback();
-                return false;
-            }
-
-            int idUsuario = rs.getInt(1);
-
-            // 2. Insertar estudiante
-            PreparedStatement psEstudiante = con.prepareStatement(sqlEstudiante);
-            psEstudiante.setInt(1, idUsuario);
-            psEstudiante.executeUpdate();
-
-            con.commit();
-            return true;
-
-        } catch (SQLIntegrityConstraintViolationException ex) {
-            // Manejo de errores de duplicados
-            if (ex.getMessage().contains("cedula")) {
-                JOptionPane.showMessageDialog(null,
-                        "La cédula ya está registrada",
-                        "Error",
-                        JOptionPane.ERROR_MESSAGE);
-            } else if (ex.getMessage().contains("correo")) {
-                JOptionPane.showMessageDialog(null,
-                        "El correo ya está registrado",
-                        "Error",
-                        JOptionPane.ERROR_MESSAGE);
-            } else {
-                JOptionPane.showMessageDialog(null,
-                        "Datos duplicados",
-                        "Error",
-                        JOptionPane.ERROR_MESSAGE);
-            }
-            return false;
-
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null,
-                    "Error al registrar estudiante:\n" + ex.getMessage(),
-                    "Error BD",
-                    JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-    }
-
 // ================= LISTAR ESTUDIANTES =================
-    public List<Usuario> listarEstudiantes() {
-        List<Usuario> lista = new ArrayList<>();
+   // ================= LISTAR ESTUDIANTES =================
+public List<Usuario> listarEstudiantes() {
+    List<Usuario> lista = new ArrayList<>();
 
-        String sql = """
-        SELECT id_usuario, cedula, nombres, apellidos, correo, estado
-        FROM usuarios
-        WHERE rol = 'ESTUDIANTE'
+    String sql = """
+        SELECT u.id_usuario, u.cedula, u.nombres, u.apellidos, 
+               u.correo, u.estado, e.carrera, e.id_estudiante
+        FROM usuarios u
+        INNER JOIN estudiantes e ON u.id_usuario = e.id_usuario
+        WHERE u.rol = 'ESTUDIANTE' AND u.estado = 'ACTIVO'
     """;
 
-        try (Connection con = Config.getConexion(); PreparedStatement ps = con.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
+    try (Connection con = Config.getConexion(); 
+         PreparedStatement ps = con.prepareStatement(sql); 
+         ResultSet rs = ps.executeQuery()) {
 
-            while (rs.next()) {
-                Usuario u = new Usuario();
-                u.setIdUsuario(rs.getInt("id_usuario"));
-                u.setCedula(rs.getString("cedula"));
-                u.setNombres(rs.getString("nombres"));
-                u.setApellidos(rs.getString("apellidos"));
-                u.setCorreo(rs.getString("correo"));
-                u.setEstado(rs.getString("estado"));
-                u.setRol("ESTUDIANTE");
-                lista.add(u);
-            }
-
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null,
-                    "Error al listar estudiantes",
-                    "Error BD",
-                    JOptionPane.ERROR_MESSAGE);
+        while (rs.next()) {
+            Usuario u = new Usuario();
+            u.setIdUsuario(rs.getInt("id_usuario"));
+            u.setCedula(rs.getString("cedula"));
+            u.setNombres(rs.getString("nombres"));
+            u.setApellidos(rs.getString("apellidos"));
+            u.setCorreo(rs.getString("correo"));
+            u.setEstado(rs.getString("estado"));
+            u.setCarrera(rs.getString("carrera"));
+            u.setRol("ESTUDIANTE");
+            // Si necesitas almacenar el id_estudiante en la clase Usuario
+            // puedes agregar un campo para ello
+            lista.add(u);
         }
 
-        return lista;
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null,
+                "Error al listar estudiantes: " + ex.getMessage(),
+                "Error BD",
+                JOptionPane.ERROR_MESSAGE);
     }
+
+    return lista;
+}
+
+// ================= AGREGAR ESTUDIANTE =================
+public boolean agregarEstudiante(Usuario u) {
+    Connection con = null;
+    PreparedStatement psUsuario = null;
+    PreparedStatement psEstudiante = null;
+    ResultSet generatedKeys = null;
+    
+    try {
+        con = Config.getConexion();
+        con.setAutoCommit(false);
+        
+        // 1. Insertar en la tabla usuarios
+        String sqlUsuario = """
+            INSERT INTO usuarios (cedula, nombres, apellidos, correo, 
+                                 contrasena, estado, rol)
+            VALUES (?, ?, ?, ?, ?, ?, 'ESTUDIANTE')
+        """;
+        
+        psUsuario = con.prepareStatement(sqlUsuario, Statement.RETURN_GENERATED_KEYS);
+        psUsuario.setString(1, u.getCedula());
+        psUsuario.setString(2, u.getNombres());
+        psUsuario.setString(3, u.getApellidos());
+        psUsuario.setString(4, u.getCorreo());
+        psUsuario.setString(5, u.getContrasena());
+        psUsuario.setString(6, u.getEstado());
+        
+        int filasUsuario = psUsuario.executeUpdate();
+        
+        if (filasUsuario == 0) {
+            throw new SQLException("No se pudo insertar en la tabla usuarios");
+        }
+        
+        // Obtener el ID generado del usuario
+        generatedKeys = psUsuario.getGeneratedKeys();
+        int idUsuario;
+        if (generatedKeys.next()) {
+            idUsuario = generatedKeys.getInt(1);
+        } else {
+            throw new SQLException("No se pudo obtener el ID del usuario insertado");
+        }
+        
+        // 2. Insertar en la tabla estudiantes
+        String sqlEstudiante = """
+            INSERT INTO estudiantes (id_usuario, carrera)
+            VALUES (?, ?)
+        """;
+        
+        psEstudiante = con.prepareStatement(sqlEstudiante);
+        psEstudiante.setInt(1, idUsuario);
+        psEstudiante.setString(2, u.getCarrera());
+        
+        int filasEstudiante = psEstudiante.executeUpdate();
+        
+        if (filasEstudiante == 0) {
+            throw new SQLException("No se pudo insertar en la tabla estudiantes");
+        }
+        
+        con.commit();
+        return true;
+        
+    } catch (SQLException ex) {
+        try {
+            if (con != null) {
+                con.rollback();
+            }
+        } catch (SQLException rollbackEx) {
+            rollbackEx.printStackTrace();
+        }
+        
+        JOptionPane.showMessageDialog(null,
+                "Error al agregar estudiante: " + ex.getMessage(),
+                "Error BD",
+                JOptionPane.ERROR_MESSAGE);
+        return false;
+        
+    } finally {
+        try {
+            if (generatedKeys != null) generatedKeys.close();
+            if (psEstudiante != null) psEstudiante.close();
+            if (psUsuario != null) psUsuario.close();
+            if (con != null) {
+                con.setAutoCommit(true);
+                con.close();
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+}
 
 // ================= EDITAR ESTUDIANTE =================
-    public boolean editarEstudiante(Usuario u) {
-        // Si se proporciona contraseña, actualizarla, si no, solo estado y datos personales
-        String sql;
-
+public boolean editarEstudiante(Usuario u) {
+    Connection con = null;
+    PreparedStatement psUsuario = null;
+    PreparedStatement psEstudiante = null;
+    
+    try {
+        con = Config.getConexion();
+        con.setAutoCommit(false);
+        
+        // 1. Actualizar en la tabla usuarios
+        String sqlUsuario;
         if (u.getContrasena() != null && !u.getContrasena().isEmpty()) {
-            sql = """
-            UPDATE usuarios
-            SET nombres = ?, apellidos = ?, correo = ?, contrasena = ?, estado = ?
-            WHERE id_usuario = ? AND rol = 'ESTUDIANTE'
-        """;
+            sqlUsuario = """
+                UPDATE usuarios
+                SET nombres = ?, apellidos = ?, correo = ?, 
+                    contrasena = ?, estado = ?
+                WHERE id_usuario = ? AND rol = 'ESTUDIANTE'
+            """;
         } else {
-            sql = """
-            UPDATE usuarios
-            SET nombres = ?, apellidos = ?, correo = ?, estado = ?
-            WHERE id_usuario = ? AND rol = 'ESTUDIANTE'
-        """;
+            sqlUsuario = """
+                UPDATE usuarios
+                SET nombres = ?, apellidos = ?, correo = ?, estado = ?
+                WHERE id_usuario = ? AND rol = 'ESTUDIANTE'
+            """;
         }
-
-        try (Connection con = Config.getConexion(); PreparedStatement ps = con.prepareStatement(sql)) {
-
-            if (u.getContrasena() != null && !u.getContrasena().isEmpty()) {
-                ps.setString(1, u.getNombres());
-                ps.setString(2, u.getApellidos());
-                ps.setString(3, u.getCorreo());
-                ps.setString(4, u.getContrasena());
-                ps.setString(5, u.getEstado());
-                ps.setInt(6, u.getIdUsuario());
-            } else {
-                ps.setString(1, u.getNombres());
-                ps.setString(2, u.getApellidos());
-                ps.setString(3, u.getCorreo());
-                ps.setString(4, u.getEstado());
-                ps.setInt(5, u.getIdUsuario());
+        
+        psUsuario = con.prepareStatement(sqlUsuario);
+        
+        if (u.getContrasena() != null && !u.getContrasena().isEmpty()) {
+            psUsuario.setString(1, u.getNombres());
+            psUsuario.setString(2, u.getApellidos());
+            psUsuario.setString(3, u.getCorreo());
+            psUsuario.setString(4, u.getContrasena());
+            psUsuario.setString(5, u.getEstado());
+            psUsuario.setInt(6, u.getIdUsuario());
+        } else {
+            psUsuario.setString(1, u.getNombres());
+            psUsuario.setString(2, u.getApellidos());
+            psUsuario.setString(3, u.getCorreo());
+            psUsuario.setString(4, u.getEstado());
+            psUsuario.setInt(5, u.getIdUsuario());
+        }
+        
+        int filasUsuario = psUsuario.executeUpdate();
+        
+        if (filasUsuario == 0) {
+            throw new SQLException("No se pudo actualizar en la tabla usuarios");
+        }
+        
+        // 2. Actualizar en la tabla estudiantes
+        String sqlEstudiante = """
+            UPDATE estudiantes
+            SET carrera = ?
+            WHERE id_usuario = ?
+        """;
+        
+        psEstudiante = con.prepareStatement(sqlEstudiante);
+        psEstudiante.setString(1, u.getCarrera());
+        psEstudiante.setInt(2, u.getIdUsuario());
+        
+        int filasEstudiante = psEstudiante.executeUpdate();
+        
+        if (filasEstudiante == 0) {
+            // Si no existe, insertar (aunque debería existir)
+            String sqlInsertEstudiante = """
+                INSERT INTO estudiantes (id_usuario, carrera)
+                VALUES (?, ?)
+            """;
+            
+            try (PreparedStatement psInsert = con.prepareStatement(sqlInsertEstudiante)) {
+                psInsert.setInt(1, u.getIdUsuario());
+                psInsert.setString(2, u.getCarrera());
+                psInsert.executeUpdate();
             }
-
-            ps.executeUpdate();
-            return true;
-
+        }
+        
+        con.commit();
+        return true;
+        
+    } catch (SQLException ex) {
+        try {
+            if (con != null) {
+                con.rollback();
+            }
+        } catch (SQLException rollbackEx) {
+            rollbackEx.printStackTrace();
+        }
+        
+        JOptionPane.showMessageDialog(null,
+                "Error al actualizar estudiante: " + ex.getMessage(),
+                "Error BD",
+                JOptionPane.ERROR_MESSAGE);
+        return false;
+        
+    } finally {
+        try {
+            if (psEstudiante != null) psEstudiante.close();
+            if (psUsuario != null) psUsuario.close();
+            if (con != null) {
+                con.setAutoCommit(true);
+                con.close();
+            }
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null,
-                    "Error al actualizar estudiante",
-                    "Error BD",
-                    JOptionPane.ERROR_MESSAGE);
-            return false;
+            ex.printStackTrace();
         }
     }
+}
 
 // ================= ELIMINAR ESTUDIANTE =================
-    public boolean eliminarEstudiante(int idUsuario) {
-        // Marcamos como INACTIVO en lugar de eliminar
-        String sql = """
-        UPDATE usuarios
-        SET estado = 'INACTIVO'
+public boolean eliminarEstudiante(int idUsuario) {
+    // Eliminación física (se eliminará en cascada de la tabla estudiantes)
+    String sql = """
+        DELETE FROM usuarios
         WHERE id_usuario = ? AND rol = 'ESTUDIANTE'
     """;
 
-        try (Connection con = Config.getConexion(); PreparedStatement ps = con.prepareStatement(sql)) {
+    try (Connection con = Config.getConexion(); 
+         PreparedStatement ps = con.prepareStatement(sql)) {
 
-            ps.setInt(1, idUsuario);
-            ps.executeUpdate();
-            return true;
+        ps.setInt(1, idUsuario);
+        int filasEliminadas = ps.executeUpdate();
+        
+        // Devuelve true si se eliminó al menos un registro
+        return filasEliminadas > 0;
 
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null,
-                    "No se pudo eliminar el estudiante",
-                    "Error BD",
-                    JOptionPane.ERROR_MESSAGE);
-            return false;
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null,
+                "Error al eliminar estudiante: " + ex.getMessage(),
+                "Error BD",
+                JOptionPane.ERROR_MESSAGE);
+        return false;
+    }
+}
+
+// ================= BUSCAR ESTUDIANTE POR CÉDULA =================
+public Usuario buscarEstudiantePorCedula(String cedula) {
+    String sql = """
+        SELECT u.id_usuario, u.cedula, u.nombres, u.apellidos, 
+               u.correo, u.estado, e.carrera, e.id_estudiante
+        FROM usuarios u
+        INNER JOIN estudiantes e ON u.id_usuario = e.id_usuario
+        WHERE u.cedula = ? AND u.rol = 'ESTUDIANTE'
+    """;
+
+    try (Connection con = Config.getConexion(); 
+         PreparedStatement ps = con.prepareStatement(sql)) {
+        
+        ps.setString(1, cedula);
+        ResultSet rs = ps.executeQuery();
+
+        if (rs.next()) {
+            Usuario u = new Usuario();
+            u.setIdUsuario(rs.getInt("id_usuario"));
+            u.setCedula(rs.getString("cedula"));
+            u.setNombres(rs.getString("nombres"));
+            u.setApellidos(rs.getString("apellidos"));
+            u.setCorreo(rs.getString("correo"));
+            u.setEstado(rs.getString("estado"));
+            u.setCarrera(rs.getString("carrera"));
+            u.setRol("ESTUDIANTE");
+            return u;
         }
+
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null,
+                "Error al buscar estudiante por cédula: " + ex.getMessage(),
+                "Error BD",
+                JOptionPane.ERROR_MESSAGE);
     }
 
-    public Integer obtenerIdEstudiante(int idUsuario) {
-        String sql = "SELECT id_estudiante FROM estudiantes WHERE id_usuario = ?";
+    return null;
+}
 
-        try (Connection conn = Config.getConexion(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            pstmt.setInt(1, idUsuario);
-            ResultSet rs = pstmt.executeQuery();
+// ================= OBTENER ID ESTUDIANTE =================
+public Integer obtenerIdEstudiante(int idUsuario) {
+    String sql = "SELECT id_estudiante FROM estudiantes WHERE id_usuario = ?";
 
-            if (rs.next()) {
-                return rs.getInt("id_estudiante");
-            }
+    try (Connection conn = Config.getConexion(); 
+         PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-        } catch (SQLException e) {
-            System.err.println("Error al obtener id_estudiante: " + e.getMessage());
+        pstmt.setInt(1, idUsuario);
+        ResultSet rs = pstmt.executeQuery();
+
+        if (rs.next()) {
+            return rs.getInt("id_estudiante");
         }
 
-        return null;
+    } catch (SQLException e) {
+        System.err.println("Error al obtener id_estudiante: " + e.getMessage());
     }
+
+    return null;
+}
 
     public int contarReservasHoy(int idEstudiante) {
         String sql = "SELECT COUNT(*) as total_reservas "

@@ -53,7 +53,7 @@ public class GestionBibliotecarios extends javax.swing.JPanel {
                 jbtn_agregarBibliotearioActionPerformed(evt);
             }
         });
-        add(jbtn_agregarBiblioteario, new org.netbeans.lib.awtextra.AbsoluteConstraints(342, 60, 140, 30));
+        add(jbtn_agregarBiblioteario, new org.netbeans.lib.awtextra.AbsoluteConstraints(322, 60, 160, 30));
 
         jtb_Bibliotecarios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

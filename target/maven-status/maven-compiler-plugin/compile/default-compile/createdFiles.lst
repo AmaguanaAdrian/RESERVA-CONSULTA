@@ -18,7 +18,6 @@ vista\ConsultaCatalogo.class
 vista\MisReservas.class
 vista\DialogLibros$2.class
 vista\ConsultaCatalogo$1.class
-controlador\ControladorGestionEstudiantes$6.class
 Utilidades\AppUtils$1.class
 controlador\ControladorConsultaCatalogo$2.class
 controlador\ControladorGestionCatalogo$4.class
@@ -31,13 +30,16 @@ controlador\ControladorMisReservas$2.class
 controlador\ControladorMisReservas.class
 modelo\AutorDAO.class
 modelo\UsuarioDAO.class
+vista\DialogEstudiante$4.class
 controlador\ControladorGestionEstudiantes$2.class
 Utilidades\AppUtils$12.class
 vista\GestionBibliotecarios$1.class
 vista\DialogBibliotecario$1.class
+vista\DialogEstudiante.class
 controlador\ControladorGestionCatalogo$3.class
 controlador\ControladorGestionCatalogo$2.class
 vista\DialogBibliotecario$2.class
+vista\DialogEstudiante$3.class
 controlador\ControladorConsultaCatalogo$3.class
 controlador\ControladorMisReservas$EstadoRenderer.class
 controlador\ControladorGestionEstudiantes$1.class
@@ -48,6 +50,7 @@ Utilidades\AppUtils$13.class
 controlador\ControladorContenedor.class
 Utilidades\AppUtils$6.class
 vista\DialogAutorGenero$3.class
+vista\DialogEstudiante$2.class
 controlador\ControladorGestionBibliotecarios.class
 vista\DialogBibliotecario$3.class
 vista\DialogBibliotecario$4$1.class
@@ -59,6 +62,7 @@ modelo\Libro.class
 controlador\ControladorGestionCatalogo$5.class
 modelo\Reserva$EstadoReserva.class
 controlador\ControladorConsultaCatalogo$1.class
+vista\DialogEstudiante$4$1.class
 controlador\ControladorMisReservas$1.class
 controlador\ControladorGestionBibliotecarios$4.class
 modelo\Genero.class
@@ -82,6 +86,7 @@ modelo\ValidadorCedula.class
 Utilidades\AppUtils$ValidadorCampo.class
 controlador\ControladorGestionEstudiantes$5.class
 vista\DialogAutorGenero$1.class
+vista\DialogEstudiante$1.class
 modelo\GeneroDAO.class
 Utilidades\AppUtils$2.class
 vista\VistaLogin.class
