@@ -36,8 +36,6 @@ public class ControladorGestionEstudiantes implements ActionListener {
         configurarBusquedaEnTiempoReal();
 
         vista.jbtn_AgregarEstudiantes.addActionListener(this);
-        // Si tienes botón de búsqueda, si no, solo la búsqueda en tiempo real
-        // vista.jbtn_BuscarEstudiantes.addActionListener(this);
     }
 
     // ================= APLICAR ESTILOS =================

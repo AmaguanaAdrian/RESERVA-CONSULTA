@@ -101,26 +101,26 @@ public class UsuarioDAO {
 
     // ================= LISTAR =================
     public List<Usuario> listarBibliotecarios() {
-
         List<Usuario> lista = new ArrayList<>();
-
         String sql = """
-            SELECT 
-                id_usuario,
-                cedula,
-                nombres,
-                apellidos,
-                correo,
-                rol,
-                estado
-            FROM usuarios
-            WHERE rol = 'BIBLIOTECARIO';
-        """;
+        SELECT 
+            id_usuario,
+            cedula,
+            nombres,
+            apellidos,
+            correo,
+            rol,
+            estado
+        FROM usuarios
+        WHERE rol = 'BIBLIOTECARIO'
+    """;
 
         try (Connection con = Config.getConexion(); PreparedStatement ps = con.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
 
             while (rs.next()) {
                 Usuario u = new Usuario();
+                // ✅ IMPORTANTE: Debes setear el ID para poder eliminar después
+                u.setIdUsuario(rs.getInt("id_usuario"));
                 u.setCedula(rs.getString("cedula"));
                 u.setNombres(rs.getString("nombres"));
                 u.setApellidos(rs.getString("apellidos"));
@@ -131,13 +131,26 @@ public class UsuarioDAO {
             }
 
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null,
-                    "Error al listar bibliotecarios",
-                    "Error BD",
-                    JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error al listar bibliotecarios", "Error BD", JOptionPane.ERROR_MESSAGE);
         }
-
         return lista;
+    }
+//CEDULAAAA EXISTE.
+    public boolean existeCedula(String cedula) {
+        String sql = "SELECT 1 FROM usuarios WHERE cedula = ? LIMIT 1";
+
+        try (Connection con = Config.getConexion(); PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setString(1, cedula);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                return rs.next();
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Error verificando cédula: " + e.getMessage());
+            return true; // por seguridad, asumir que existe
+        }
     }
 
     // ================= EDITAR =================
@@ -184,23 +197,24 @@ public class UsuarioDAO {
 
     // ================= ELIMINAR =================
     public boolean eliminarBibliotecario(int idUsuario) {
-
-        String sql = """
-            UPDATE usuarios
-            SET estado = 'INACTIVO'
-            WHERE id_usuario = ?
-        """;
+        // Cambiamos el UPDATE por DELETE para borrar el registro permanentemente
+        String sql = "DELETE FROM usuarios WHERE id_usuario = ?";
 
         try (Connection con = Config.getConexion(); PreparedStatement ps = con.prepareStatement(sql)) {
 
             ps.setInt(1, idUsuario);
-            ps.executeUpdate();
-            return true;
+
+            // Es buena práctica verificar si se borró alguna fila
+            int filasAfectadas = ps.executeUpdate();
+            return filasAfectadas > 0;
 
         } catch (SQLException ex) {
+            // Importante: Si el bibliotecario ya tiene préstamos o reservas registradas, 
+            // la base de datos podría dar un error de "Llave Foránea" (Foreign Key).
             JOptionPane.showMessageDialog(null,
-                    "No se pudo eliminar el bibliotecario",
-                    "Error BD",
+                    "No se pudo eliminar el bibliotecario. \n"
+                    + "Verifique que no tenga registros asociados (préstamos o reservas).",
+                    "Error de Base de Datos",
                     JOptionPane.ERROR_MESSAGE);
             return false;
         }

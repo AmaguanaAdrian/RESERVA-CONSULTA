@@ -339,23 +339,61 @@ public final class AppUtils {
     }
 
 // ===================== ANIMACIONES =====================
+    // ===================== ANIMACIONES =====================
     public static void animarAperturaDialogo(Window dialog) {
-        dialog.setOpacity(0f);
+        // Este método ahora es seguro para diálogos decorados
+        // No hace nada, simplemente no causa errores
+        // Si quieres animación, usa uno de los métodos alternativos que no use setOpacity()
 
-        Timer timer = new Timer(10, new ActionListener() {
-            float opacity = 0f;
+        // Para mantener compatibilidad, dejamos el método vacío
+        // O puedes usar una animación alternativa como esta:
+        animarAperturaDialogoSeguro(dialog);
+    }
+
+// Método de animación seguro que no usa opacidad
+    public static void animarAperturaDialogoSeguro(Window dialog) {
+        if (dialog == null) {
+            return;
+        }
+
+        // Animación de expansión simple y segura
+        Dimension originalSize = dialog.getSize();
+        Point originalLocation = dialog.getLocation();
+
+        // Iniciar con tamaño pequeño
+        dialog.setSize(originalSize.width, 1);
+
+        Timer timer = new Timer(20, new ActionListener() {
+            int height = 1;
+            int step = 0;
+            final int totalSteps = 10;
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (opacity < 1f) {
-                    opacity += 0.05f;
-                    dialog.setOpacity(opacity);
+                if (step < totalSteps) {
+                    height = (int) (originalSize.height * (step / (double) totalSteps));
+                    dialog.setSize(originalSize.width, Math.max(1, height));
+                    step++;
                 } else {
                     ((Timer) e.getSource()).stop();
+                    dialog.setSize(originalSize);
+                    dialog.setLocation(originalLocation);
                 }
             }
         });
         timer.start();
+    }
+
+// Método sobrecargado para JPanel
+    public static void posicionarDialogoIzquierda(Window dialog, JPanel parentPanel) {
+        // Obtener la ventana padre del panel
+        Window parentWindow = SwingUtilities.getWindowAncestor(parentPanel);
+        if (parentWindow != null) {
+            posicionarDialogoIzquierda(dialog, parentWindow);
+        } else {
+            // Si no se encuentra la ventana padre, centrar en pantalla
+            dialog.setLocationRelativeTo(null);
+        }
     }
 
     public static void vibrarComponente(Component componente) {
